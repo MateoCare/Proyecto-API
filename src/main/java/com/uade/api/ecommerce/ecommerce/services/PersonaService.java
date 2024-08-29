@@ -4,6 +4,7 @@ import com.uade.api.ecommerce.ecommerce.models.Persona;
 import com.uade.api.ecommerce.ecommerce.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class PersonaService {
         return "Hola Mundo";
     }
 
-    public Persona guardarPersona(Persona persona){
+    public Persona registrarPersona(@RequestBody Persona persona){
         return personaRepository.save(persona);
     }
 

@@ -28,9 +28,9 @@ public class PersonaController {
         return ResponseEntity.ok(obtenerLista);
     }
 
-    @PostMapping("/guardar")
+    @PostMapping("/registro")
     public ResponseEntity guardarPersona(@RequestBody Persona persona){
-        Persona nuevaPersona = personaService.guardarPersona(persona);
+        Persona nuevaPersona = personaService.registrarPersona(persona);
         return ResponseEntity.ok(nuevaPersona);
     }
 
