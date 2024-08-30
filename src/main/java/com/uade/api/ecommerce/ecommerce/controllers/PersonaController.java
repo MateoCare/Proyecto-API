@@ -2,7 +2,7 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 
 
 import com.uade.api.ecommerce.ecommerce.models.Persona;
-import com.uade.api.ecommerce.ecommerce.models.PersonaLogIn;
+import com.uade.api.ecommerce.ecommerce.models.dto.LoginDto;
 import com.uade.api.ecommerce.ecommerce.services.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +36,21 @@ public class PersonaController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody PersonaLogIn personaLogIn){
-        String personaLogin = personaService.login(personaLogIn.getUsuario(), personaLogIn.getPassword());
+    public ResponseEntity login(@RequestBody LoginDto loginDto){
+
+        Persona p = this.loginDtoToPersona(loginDto);
+        String personaLogin = personaService.login(p.getUsuario(), p.getPassword());
         return ResponseEntity.ok(personaLogin);
+    }
+
+
+    private Persona loginDtoToPersona(LoginDto loginDto){
+        Persona p = new Persona();
+
+        p.setUsuario(loginDto.getUsuario());
+        p.setPassword(loginDto.getPassword());
+
+        return p;
     }
 
 }

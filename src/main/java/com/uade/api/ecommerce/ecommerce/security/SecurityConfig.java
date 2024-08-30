@@ -17,7 +17,8 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(auth ->
                 auth.requestMatchers("/h2-console/**", "/login", "/registrar/**", "/**")
                         .permitAll()
-        ).csrf(csrf -> csrf.disable()).headers(head -> head.frameOptions(frame -> frame.disable()));
+        ).csrf(csrf -> csrf.disable())
+                .headers(head -> head.frameOptions(frame -> frame.disable()));
 
         return httpSecurity.build();
     }
