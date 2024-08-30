@@ -26,4 +26,20 @@ public class PersonaService {
     public List<Persona> getListaPersonas(){
         return personaRepository.findAll();
     }
+
+
+    public String login(@RequestBody String usuario, String password){
+        if (personaRepository.findByUsuario(usuario) != null) {
+            if(personaRepository.findByUsuario(usuario).getPassword().equals(password)){
+                return "Login Exitoso";
+            }
+            else{
+                return "Login Incorrecto";
+            }
+        }
+        else{
+            return "Login Error";
+        }
+    }
+
 }

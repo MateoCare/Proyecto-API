@@ -2,6 +2,7 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 
 
 import com.uade.api.ecommerce.ecommerce.models.Persona;
+import com.uade.api.ecommerce.ecommerce.models.PersonaLogIn;
 import com.uade.api.ecommerce.ecommerce.services.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,12 @@ public class PersonaController {
     public ResponseEntity guardarPersona(@RequestBody Persona persona){
         Persona nuevaPersona = personaService.registrarPersona(persona);
         return ResponseEntity.ok(nuevaPersona);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody PersonaLogIn personaLogIn){
+        String personaLogin = personaService.login(personaLogIn.getUsuario(), personaLogIn.getPassword());
+        return ResponseEntity.ok(personaLogin);
     }
 
 }
