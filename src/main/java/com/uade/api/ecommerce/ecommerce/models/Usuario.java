@@ -1,14 +1,14 @@
 package com.uade.api.ecommerce.ecommerce.models;
 
-import com.uade.api.ecommerce.ecommerce.dto.LoginDto;
+import com.uade.api.ecommerce.ecommerce.dto.LoginDTO;
+import com.uade.api.ecommerce.ecommerce.dto.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
 
 @Entity @Data
-
-public class Persona {
+public class Usuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -33,9 +33,13 @@ public class Persona {
     @Column(nullable = false)
     private int edad;
 
-    public LoginDto toLoginDto()
+    public LoginDTO toLoginDto()
     {
-        return new LoginDto(usuario, password);
+        return new LoginDTO(usuario, password);
     }
 
+    public UsuarioDTO toUsuarioDTO() {
+        // TODO
+        return new UsuarioDTO();
+    }
 }

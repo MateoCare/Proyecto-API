@@ -1,15 +1,15 @@
 package com.uade.api.ecommerce.ecommerce.repository;
 
-import com.uade.api.ecommerce.ecommerce.models.Persona;
+import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface PersonaRepository extends JpaRepository<Persona, Long> {
+public interface UserRepository extends JpaRepository<Usuario, Long> {
 
     //BUSCA EL USUARIO
-    Persona findByUsuario(String usuario);
+    Usuario findByUsuario(String usuario);
 
 
 }
