@@ -1,5 +1,6 @@
 package com.uade.api.ecommerce.ecommerce.models;
 
+import com.uade.api.ecommerce.ecommerce.dto.LoginDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,5 +33,9 @@ public class Persona {
     @Column(nullable = false)
     private int edad;
 
+    public LoginDto toLoginDto()
+    {
+        return new LoginDto(usuario, password);
+    }
 
 }

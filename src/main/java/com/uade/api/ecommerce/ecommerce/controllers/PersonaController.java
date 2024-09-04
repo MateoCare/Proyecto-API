@@ -2,7 +2,7 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 
 
 import com.uade.api.ecommerce.ecommerce.models.Persona;
-import com.uade.api.ecommerce.ecommerce.models.dto.LoginDto;
+import com.uade.api.ecommerce.ecommerce.dto.LoginDto;
 import com.uade.api.ecommerce.ecommerce.services.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
