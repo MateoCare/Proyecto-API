@@ -22,8 +22,14 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDTO loginDto){
         Usuario p = loginDto.toPersona();
-        String token = personaService.login(p.getUsuario(), p.getPassword());
-        return ResponseEntity.ok(token);
+
+        try{
+            String token = personaService.login(p.getUsuario(), p.getPassword());
+            return ResponseEntity.ok(token);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @PostMapping("/registro")

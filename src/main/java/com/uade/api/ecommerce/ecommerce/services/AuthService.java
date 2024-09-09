@@ -16,19 +16,20 @@ public class AuthService {
         return personaRepository.save(persona);
     }
 
-    public String login(String usuario, String password){
+    public String login(String usuario, String password) throws Exception{
         Usuario u = personaRepository.findByUsuario(usuario);
+
         if (u != null) {
             if(u.getPassword().equals(password)){
                 // TODO generar el token
+                return "TODO Token Imp";
             }
             else{
-                return "Login Incorrecto";
+                throw  new Exception("Login Incorrecto");
             }
         }
-        else{
-            return "Login Error";
-        }
+
+        throw new Exception("Usuario not found");
     }
 
 }
