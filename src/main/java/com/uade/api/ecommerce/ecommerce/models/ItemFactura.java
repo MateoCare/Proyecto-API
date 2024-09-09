@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.models;
 
 
+import com.uade.api.ecommerce.ecommerce.dto.ItemFacturaDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,4 +20,14 @@ public class ItemFactura {
     private StockProducto stockProducto;
     private int unidad;
     private Double precioUnidad;
+
+
+    public ItemFacturaDTO toDTO(){
+        ItemFacturaDTO itemFacturaDTO = ItemFacturaDTO.builder()
+                .idProducto(stockProducto.getId())
+                .precioUnidad(precioUnidad)
+                .unidad(unidad)
+                .build();
+        return itemFacturaDTO;
+    }
 }

@@ -1,5 +1,6 @@
 package com.uade.api.ecommerce.ecommerce.controllers;
 
+import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.FacturaDTO;
 import com.uade.api.ecommerce.ecommerce.models.Factura;
 import com.uade.api.ecommerce.ecommerce.models.ItemFactura;
@@ -30,29 +31,10 @@ public class FacturaController {
     private StockProductoRepository stockProductoRepository;
 
     @PostMapping()
-    public ResponseEntity crearFactura(@RequestBody FacturaDTO factura) {
+    public ResponseEntity crearFactura(@RequestBody CarritoDTO carritoDTO) {
 
-        var usu = userRepository.findById(factura.idUsuario);
+        var factura = facturaService.realizarCompra(carritoDTO);
 
-        List<ItemFactura> listaItems = factura.Items.stream().map(item -> {
-
-            StockProducto stockProducto = stockProductoRepository.findById(item.idProducto).get();
-
-            System.out.println(stockProducto.getProducto());
-            var itemFactura = ItemFactura.builder()
-                    .unidad(item.unidad)
-                    .stockProducto(stockProducto)
-                    .precioUnidad(stockProducto.getProducto().getPrecio())
-                    .build();
-
-            return itemFactura;
-        }).toList();
-
-        Factura temp = Factura.builder()
-                .comprador(usu.get())
-                .itemFacturas(listaItems)
-                .build();
-
-        return ResponseEntity.ok(facturaService.realizarCompra(temp));
+        return ResponseEntity.ok(facturaService.realizarCompra(carritoDTO).toDTO());
     }
 }
