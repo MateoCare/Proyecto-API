@@ -2,8 +2,9 @@ package com.uade.api.ecommerce.ecommerce.models;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
-@Entity
+@Entity@Data
 public class StockProducto {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)

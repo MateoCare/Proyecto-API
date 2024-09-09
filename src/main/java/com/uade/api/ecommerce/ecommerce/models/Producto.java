@@ -2,10 +2,11 @@ package com.uade.api.ecommerce.ecommerce.models;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
-@Entity
+@Entity@Data
 public class Producto {
 
     @Id
