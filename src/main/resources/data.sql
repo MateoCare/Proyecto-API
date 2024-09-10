@@ -1,6 +1,6 @@
-INSERT INTO USUARIO(USUARIO, PASSWORD, EMAIL, FECHA_NACIMIENTO, NOMBRE, APELLIDO, EDAD) VALUES
-    ('test','abc123', 'test@test.com', '2012-09-17', 'test','test', 21),
-    ('admin','admin', 'admin@admin.com', '2012-09-17', 'admin','', 99);
+INSERT INTO USUARIO(USUARIO, PASSWORD, EMAIL, FECHA_NACIMIENTO, NOMBRE, APELLIDO, EDAD, ROL) VALUES
+    ('test','$2a$10$bhoNyi0sxaGQu.50zOiUL.SKpSPGHytwGruHhYYP2hSDZpkYHEIri', 'test@test.com', '2012-09-17', 'test','test', 21, 1),
+    ('admin','$2a$10$bhoNyi0sxaGQu.50zOiUL.SKpSPGHytwGruHhYYP2hSDZpkYHEIri', 'admin@admin.com', '2012-09-17', 'admin','', 99, 0);
 
 INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, IMAGEN, PRECIO) VALUES
     ('Adidas JumpCrazy', 'Modo rana all day', 'jumpcrazy.jpg', 99.99),

@@ -36,6 +36,9 @@ public class Usuario {
     @Column(nullable = false)
     private int edad;
 
+    @Column
+    private Rol rol;
+
     public LoginDTO toLoginDto()
     {
         return new LoginDTO(usuario, password);
