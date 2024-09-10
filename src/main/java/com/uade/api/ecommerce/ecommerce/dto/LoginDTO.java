@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data @AllArgsConstructor
 public class LoginDTO {
-    private String usuario;
+    private String email;
     private String password;
 
     public Usuario toPersona(){
         Usuario p = new Usuario();
-        p.setUsuario(usuario);
+        p.setEmail(email);
         p.setPassword(password);
 
         return p;

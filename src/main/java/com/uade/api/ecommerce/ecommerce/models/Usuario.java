@@ -3,11 +3,14 @@ package com.uade.api.ecommerce.ecommerce.models;
 import com.uade.api.ecommerce.ecommerce.dto.LoginDTO;
 import com.uade.api.ecommerce.ecommerce.dto.UsuarioDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity @Data
+@Entity @Data@Builder@NoArgsConstructor@AllArgsConstructor
 public class Usuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

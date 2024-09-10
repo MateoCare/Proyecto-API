@@ -1,9 +1,11 @@
 package com.uade.api.ecommerce.ecommerce.dto;
 
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 public class UsuarioDTO {
     private long id;
     private String usuario;
@@ -15,7 +17,15 @@ public class UsuarioDTO {
     private int edad;
 
     public Usuario toUsuario() {
-        // TODO
-        return new Usuario();
+
+        return Usuario.builder()
+                .usuario(this.usuario)
+                .password(this.password)
+                .email(this.email)
+                .fecha_nacimiento(this.fecha_nacimiento)
+                .nombre(this.nombre)
+                .apellido(this.apellido)
+                .edad(this.edad)
+                .build();
     }
 }
