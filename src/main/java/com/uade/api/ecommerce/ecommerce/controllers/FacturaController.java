@@ -35,6 +35,6 @@ public class FacturaController {
 
         var factura = facturaService.realizarCompra(carritoDTO);
 
-        return ResponseEntity.ok(facturaService.realizarCompra(carritoDTO).toDTO());
+        return ResponseEntity.ok(factura.toDTO());
     }
 }
