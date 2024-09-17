@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity @Data@Builder@NoArgsConstructor@AllArgsConstructor
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,7 +29,7 @@ public class Usuario {
     private String email;
 
     @Column(nullable = false)
-    private Date fecha_nacimiento;
+    private Date fechaNacimiento;
 
     @Column(nullable = false)
     private String nombre;
@@ -39,13 +43,19 @@ public class Usuario {
     @Column
     private Rol rol;
 
-    public LoginDTO toLoginDto()
-    {
+    public LoginDTO toLoginDto() {
         return new LoginDTO(usuario, password);
     }
 
     public UsuarioDTO toUsuarioDTO() {
-        // TODO
-        return new UsuarioDTO();
+        return UsuarioDTO.builder()
+                .usuario(usuario)
+                .apellido(apellido)
+                .edad(edad)
+                .id(id)
+                .email(email)
+                .fecha_nacimiento(fechaNacimiento)
+                .nombre(nombre)
+                .build();
     }
 }

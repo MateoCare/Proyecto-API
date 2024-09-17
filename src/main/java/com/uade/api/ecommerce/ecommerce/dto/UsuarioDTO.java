@@ -1,11 +1,12 @@
 package com.uade.api.ecommerce.ecommerce.dto;
 
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
 
-@Data
+@Data @Builder
 public class UsuarioDTO {
     private long id;
     private String usuario;
@@ -22,7 +23,7 @@ public class UsuarioDTO {
                 .usuario(this.usuario)
                 .password(this.password)
                 .email(this.email)
-                .fecha_nacimiento(this.fecha_nacimiento)
+                .fechaNacimiento(this.fecha_nacimiento)
                 .nombre(this.nombre)
                 .apellido(this.apellido)
                 .edad(this.edad)

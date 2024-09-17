@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 
 public class AuthController {
 
     @Autowired
-    private AuthService usuarioService;
+    private AuthService authService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -40,17 +42,17 @@ public class AuthController {
 
         String jwtToken = jwtTokenUtil.generateToken(loginDto.getEmail());
 
-        return ResponseEntity.ok(jwtToken);
+        return ResponseEntity.ok(Map.of("jwtToken", jwtToken));
 
     }
 
     @PostMapping("/registro")
-    public ResponseEntity guardarPersona(@RequestBody UsuarioDTO user) {
+    public ResponseEntity<UsuarioDTO> guardarPersona(@RequestBody UsuarioDTO user) {
         Usuario usuario = user.toUsuario();
+        Usuario nuevaPersona = authService.registrarPersona(usuario);
 
-        System.out.println(user);
-        Usuario nuevaPersona = usuarioService.registrarPersona(usuario);
-        return ResponseEntity.ok(nuevaPersona);
+        UsuarioDTO usuarioDTO = nuevaPersona.toUsuarioDTO();
+        return ResponseEntity.ok(usuarioDTO);
     }
 
 

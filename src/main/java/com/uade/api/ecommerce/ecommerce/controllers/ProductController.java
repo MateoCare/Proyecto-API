@@ -3,7 +3,6 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
-import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.services.ProductoService;
 import com.uade.api.ecommerce.ecommerce.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
