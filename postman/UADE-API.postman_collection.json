@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "26a9b48e-e993-4269-a6db-79f491fa312c",
+		"name": "UADE-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36482484"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/v1/factura",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"usuarioId\":1,\n    \"listItems\": [\n        {\n            \"stockProductoId\":1,\n            \"cantidad\":1\n        },\n        {\n            \"stockProductoId\":2,\n            \"cantidad\":3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/factura",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"factura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/auth/registro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"usuario\": \"user\",\n    \"password\":\"user\",\n    \"email\":\"email@email.com\",\n    \"fecha_nacimiento\":\"1997-01-01\",\n    \"nombre\":\"user\",\n    \"apellido\":\"\",\n    \"edad\":20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/auth/registro",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
