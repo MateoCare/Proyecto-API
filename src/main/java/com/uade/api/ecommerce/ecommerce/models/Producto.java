@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity@Data @Builder @AllArgsConstructor @NoArgsConstructor
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Producto {
 
     @Id
@@ -31,6 +35,8 @@ public class Producto {
     @OneToMany
     private List<StockProducto> stockProductos;
 
+    @ManyToMany
+    private List<Categoria> categoria;
 
     public ProductoDTO toProductoDTO() {
         return new ProductoDTO();
