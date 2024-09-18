@@ -27,7 +27,7 @@ public class ProductController {
 
         var producto = productoService.addProducto(productoDTO.toProducto());
 
-        var stockInitialize = stockService.initializeStock(stockDTO.toStock());
+        stockService.initializeStock(productoDTO.getTalles(), producto);
         //TODO
 
         return ResponseEntity.ok().body(producto);

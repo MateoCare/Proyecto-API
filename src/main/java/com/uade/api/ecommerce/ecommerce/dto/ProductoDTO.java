@@ -3,6 +3,8 @@ package com.uade.api.ecommerce.ecommerce.dto;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data
 public class ProductoDTO {
@@ -11,6 +13,7 @@ public class ProductoDTO {
     private String descripcion;
     private String imagen;
     private Double precio;
+    private List<Double> talles;
 
     public Producto toProducto(){
 
