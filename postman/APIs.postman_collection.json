@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "6f0aa375-6d85-491a-8651-b3fd26742c91",
+		"name": "APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18791900"
+	},
+	"item": [
+		{
+			"name": "Registrar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\": \"pmorales\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\",\r\n    \"edad\": 24\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/registro",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.responseSize === 0) {\r",
+							"    return\r",
+							"}\r",
+							"\r",
+							"let json = pm.response.json();\r",
+							"if (json && json.jwtToken) {\r",
+							"    pm.environment.set(\"token\", json.jwtToken)\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear factura",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/factura",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"factura"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
