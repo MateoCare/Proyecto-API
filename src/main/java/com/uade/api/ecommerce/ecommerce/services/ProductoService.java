@@ -17,6 +17,7 @@ public class ProductoService {
     }
 
     public Producto addProducto(Producto producto) {
+        producto.setStatus(true);
         return productoRepository.save(producto);
     }
 }
