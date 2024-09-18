@@ -3,14 +3,12 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
+import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.services.ProductoService;
 import com.uade.api.ecommerce.ecommerce.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
@@ -32,4 +30,9 @@ public class ProductController {
 
         return ResponseEntity.ok().body(producto);
     }
+
+    /**@PutMapping("/aumentoCantProducto")
+    public ResponseEntity aumentarCantStock(@RequestBody StockDTO stockDTO, Producto producto) throws Exception {
+        productoService.addStock(stockDTO, producto);
+    }**/
 }
