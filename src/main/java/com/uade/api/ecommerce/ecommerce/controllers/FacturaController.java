@@ -5,6 +5,7 @@ import com.uade.api.ecommerce.ecommerce.dto.FacturaDTO;
 import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import com.uade.api.ecommerce.ecommerce.services.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,6 @@ public class FacturaController {
 
         var factura = facturaService.realizarCompra(carritoDTO);
 
-        return ResponseEntity.ok(factura.toDTO());
+        return ResponseEntity.status(HttpStatus.CREATED).body(factura.toDTO());
     }
 }
