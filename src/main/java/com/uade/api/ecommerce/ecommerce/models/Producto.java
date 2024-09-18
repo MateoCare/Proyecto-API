@@ -17,28 +17,20 @@ import java.util.List;
 @NoArgsConstructor
 public class Producto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
-    @Column
-    private String nombre;
-    @Column
-    private String descripcion;
-    @Column
-    private String imagen;
-    @Column
-    private Double precio;
-    @Column
-    private boolean status;
+    @Column private String nombre;
+    @Column private String descripcion;
+    @Column private String imagen;
+    @Column private Double precio;
+    @Column private boolean status;
 
-    @OneToMany
-    private List<StockProducto> stockProductos;
+    @OneToMany private List<StockProducto> stockProductos;
 
-    @ManyToMany
-    private List<Categoria> categoria;
+    @ManyToMany private List<Categoria> categoria;
 
     public ProductoDTO toProductoDTO() {
-        return new ProductoDTO();
+        return ProductoDTO.builder().id(id).nombre(nombre).descripcion(descripcion).imagen(imagen).precio(precio).build();
+
     }
 }

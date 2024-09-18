@@ -1,6 +1,5 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
-import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
@@ -18,7 +17,11 @@ public class ProductoService {
     private StockService stockService;
 
     public List<Producto> findAll() {
-        return productoRepository.findAll();
+        return productoRepository.findByStatusTrue();
+    }
+
+    public List<Producto> buscarProductosPorCategoria(List<Long> categorias) {
+        return productoRepository.findByCategoriaFiltro(categorias, categorias.size());
     }
 
     public Producto addProducto(Producto producto) {
@@ -29,7 +32,7 @@ public class ProductoService {
 // Baj
 
     public Producto altaProducto(Producto producto) throws Exception {
-        if (producto.isStatus() == true) {
+        if (producto.isStatus()) {
             throw new Exception("El producto ya se encuentra dado de alta");
         }
         producto.setStatus(true);
@@ -37,7 +40,7 @@ public class ProductoService {
     }
 
     public Producto addStock(StockDTO stockDTO, Producto producto) throws Exception{
-        if (producto.isStatus() == false) {
+        if (!producto.isStatus()) {
             throw new Exception("El producto se encuentra dado de baja");
         }
         stockService.addStock(stockDTO);
