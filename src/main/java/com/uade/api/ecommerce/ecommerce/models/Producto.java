@@ -3,10 +3,7 @@ package com.uade.api.ecommerce.ecommerce.models;
 
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -33,4 +30,6 @@ public class Producto {
         return ProductoDTO.builder().id(id).nombre(nombre).descripcion(descripcion).imagen(imagen).precio(precio).build();
 
     }
+
+
 }

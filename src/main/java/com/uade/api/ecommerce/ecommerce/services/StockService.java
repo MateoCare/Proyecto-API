@@ -3,6 +3,7 @@ package com.uade.api.ecommerce.ecommerce.services;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
+import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class StockService {
 
     @Autowired
     private StockProductoRepository stockProductoRepository;
+
+    @Autowired
+    private ProductoRepository productoRepository;
 
     public List<StockProducto> findAll(){ return stockProductoRepository.findAll(); }
 
@@ -37,6 +41,16 @@ public class StockService {
         stockProducto.setCantidad(suma); //setea el stock nuevo
 
         return stockProductoRepository.save(stockProducto);
+    }
+
+    public Producto bajaProducto(Producto producto) throws Exception
+    {
+        if(!producto.isStatus())
+        {
+            throw new Exception("El producto ya se encuentra dado de baja");
+        }
+        producto.setStatus(false);
+        return productoRepository.save(producto);
     }
 
 }

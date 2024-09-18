@@ -1,8 +1,10 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
+import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
+import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class ProductoService {
 
     @Autowired
     private StockService stockService;
+    @Autowired
+    private StockProductoRepository stockProductoRepository;
 
     public List<Producto> findAll() {
         return productoRepository.findByStatusTrue();
@@ -47,6 +51,10 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
-    //Falta completar FACU
+    public void deleteStock(ProductoDTO productoDTO)
+    {
+        var stock = stockProductoRepository.findById(productoDTO.getId()).get();
+        stockProductoRepository.delete(stock);
+    }
     //public producto delete
 }
