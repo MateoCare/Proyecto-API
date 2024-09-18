@@ -1,12 +1,14 @@
 package com.uade.api.ecommerce.ecommerce.dto;
 
 import com.uade.api.ecommerce.ecommerce.models.Producto;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 
 @Data
+@Builder
 public class ProductoDTO {
     private Long id;
     private String nombre;

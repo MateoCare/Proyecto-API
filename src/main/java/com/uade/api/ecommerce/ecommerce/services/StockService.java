@@ -1,10 +1,8 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
-import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
-import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
