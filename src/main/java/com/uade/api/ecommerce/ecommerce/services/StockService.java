@@ -53,4 +53,17 @@ public class StockService {
         return productoRepository.save(producto);
     }
 
+    public StockProducto deleteStock(Long id, int restaCantidad) throws Exception 
+    {
+        StockProducto stockProducto = stockProductoRepository.findById(id)
+                .orElseThrow(() -> new Exception("StockProducto no encontrado"));
+        int cantActual = stockProducto.getCantidad();
+        if (cantActual < restaCantidad) {
+            throw new Exception("No hay suficiente stock para restar");
+        }
+        stockProducto.setCantidad(cantActual - restaCantidad);
+        return stockProductoRepository.save(stockProducto);
+    }
+    
+
 }
