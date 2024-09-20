@@ -7,6 +7,7 @@ import lombok.Data;
 public class ItemFacturaDTO {
 
     private Long idProducto;
+    private String descripcion;
     private double precioUnidad;
     private int unidad;
 }

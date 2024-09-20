@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StockService {
@@ -63,6 +64,18 @@ public class StockService {
         }
         stockProducto.setCantidad(cantActual - restaCantidad);
         return stockProductoRepository.save(stockProducto);
+    }
+
+
+    public List<StockProducto> batchActualizar(List<StockProducto> listadoActualizar){
+        //En el caso que se quiera descontar muchos items, si algunos de los items a descontar tira error, esto hace un rollback
+        //thank god for Hibernate 🙌
+        return stockProductoRepository.saveAll(listadoActualizar);
+    }
+
+
+    public StockProducto obtenerStock(long id){
+        return stockProductoRepository.findById(id).get();
     }
     
 

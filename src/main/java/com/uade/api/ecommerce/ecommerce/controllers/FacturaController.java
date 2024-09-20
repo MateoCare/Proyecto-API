@@ -1,16 +1,12 @@
 package com.uade.api.ecommerce.ecommerce.controllers;
 
 import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
-import com.uade.api.ecommerce.ecommerce.dto.FacturaDTO;
-import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import com.uade.api.ecommerce.ecommerce.services.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("v1/factura")
@@ -18,14 +14,20 @@ public class FacturaController {
 
     @Autowired
     private FacturaService facturaService;
-    @Autowired
-    private StockProductoRepository stockProductoRepository;
 
     @PostMapping()
-    public ResponseEntity<FacturaDTO> crearFactura(@RequestBody CarritoDTO carritoDTO) {
+    public ResponseEntity crearFactura(@RequestBody CarritoDTO carritoDTO){
+        try{
+            var factura = facturaService.realizarCompra(carritoDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(factura.toDTO());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); //Mejorar el manejo de la excepcion
+        }
+    }
 
-        var factura = facturaService.realizarCompra(carritoDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(factura.toDTO());
+    @GetMapping("/{id}")
+    public ResponseEntity obtenerFactura(@PathVariable Long id) {
+        return ResponseEntity.ok(facturaService.obtenerFactura(id));
     }
 }

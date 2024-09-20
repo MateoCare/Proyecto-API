@@ -25,6 +25,7 @@ public class ItemFactura {
     public ItemFacturaDTO toDTO(){
         ItemFacturaDTO itemFacturaDTO = ItemFacturaDTO.builder()
                 .idProducto(stockProducto.getId())
+                .descripcion(String.format("%s Talle %.1f", stockProducto.getProducto().getNombre(), stockProducto.getTalle() ))
                 .precioUnidad(precioUnidad)
                 .unidad(unidad)
                 .build();

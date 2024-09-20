@@ -3,6 +3,7 @@ package com.uade.api.ecommerce.ecommerce.services;
 import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
 import com.uade.api.ecommerce.ecommerce.models.Factura;
 import com.uade.api.ecommerce.ecommerce.models.ItemFactura;
+import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.repository.FacturaRepository;
 import com.uade.api.ecommerce.ecommerce.repository.ItemFacturaRepository;
@@ -28,14 +29,18 @@ public class FacturaService {
     @Autowired
     private StockProductoRepository stockProductoRepository;
 
+    @Autowired
+    private StockService stockService;
 
-    public Factura realizarCompra(CarritoDTO carritoDTO){
+
+    public Factura realizarCompra(CarritoDTO carritoDTO) throws Exception {
         var factura = Factura.builder();
 
         Usuario comprador = userRepository.findById(carritoDTO.getUsuarioId()).orElseGet(()->null);
         List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
                 .map(itemDto -> {
-                    var productoStock = stockProductoRepository.findById(itemDto.getStockProductoId()).orElse(null);
+                    //remplazar con llamada a servicio correspondiente
+                    var productoStock = stockService.obtenerStock(itemDto.getStockProductoId());
 
                     var itemFactura = ItemFactura.builder()
                             .stockProducto(productoStock)
@@ -47,6 +52,19 @@ public class FacturaService {
                 })
                 .toList();
 
+//        //Esto funca por ahora, pero hay que preveer un rollback
+//        for(var itemFactura: listItemsFactura){
+//            stockService.restoStock(itemFactura.getStockProducto().getId(), itemFactura.getUnidad());
+//        }
+
+        List<StockProducto> listaStockProductos = listItemsFactura.stream().map(item -> {
+            var stock = item.getStockProducto();
+            stock.setCantidad(stock.getCantidad() - item.getUnidad());
+            return stock;
+        }).toList();
+
+        stockService.batchActualizar(listaStockProductos);
+
         itemFacturaRepository.saveAll(listItemsFactura);
 
         factura
@@ -55,5 +73,9 @@ public class FacturaService {
                 .itemFacturas(listItemsFactura);
 
         return facturaRepository.save(factura.build());
+    }
+
+    public Factura obtenerFactura(Long id){
+        return facturaRepository.findById(id).orElse(null);
     }
 }
