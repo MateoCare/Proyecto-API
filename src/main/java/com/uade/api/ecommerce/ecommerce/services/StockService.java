@@ -53,7 +53,7 @@ public class StockService {
         return productoRepository.save(producto);
     }
 
-    public StockProducto deleteStock(Long id, int restaCantidad) throws Exception 
+    public StockProducto restoStock(Long id, int restaCantidad) throws Exception 
     {
         StockProducto stockProducto = stockProductoRepository.findById(id)
                 .orElseThrow(() -> new Exception("StockProducto no encontrado"));
