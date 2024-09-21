@@ -4,15 +4,14 @@ import com.uade.api.ecommerce.ecommerce.dto.CategoriaDTO;
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.models.Categoria;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
+import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.services.CategoriaService;
 import com.uade.api.ecommerce.ecommerce.services.ProductoService;
+import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,16 +24,33 @@ public class ListaProductosController {
     @Autowired private CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<ProductoDTO>> listarProductos(@RequestParam(name = "categorias", required = false) List<Long> categorias) {
-
-
+    public ResponseEntity<List<ProductoDTO>> listarProductosPorCategoria(@RequestParam(name = "categorias", required = false) List<Long> categorias) {
         List<Producto> productos;
         if (categorias == null) {
             productos = productoService.findAll();
-        }
-        else {
+        } else {
             productos = productoService.buscarProductosPorCategoria(categorias);
         }
+
+        List<ProductoDTO> productosDTO = productos.stream().map(Producto::toProductoDTO).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(productosDTO);
+    }
+
+    @GetMapping("/destacados")
+    public ResponseEntity<List<ProductoDTO>> listarProductosDestacados() {
+        List<Producto> productos = productoService.buscarProductosDestacados();
+
+        List<ProductoDTO> productosDTO = productos.stream().map(Producto::toProductoDTO).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(productosDTO);
+    }
+
+    @GetMapping("/recientes")
+    public ResponseEntity<List<ProductoDTO>> listarProductosVistosRecientes() {
+        Usuario usuario = SecurityUtils.getCurrentUser();
+
+        List<Producto> productos = productoService.buscarVistosRecientemente(usuario);
 
         List<ProductoDTO> productosDTO = productos.stream().map(Producto::toProductoDTO).toList();
 
@@ -47,5 +63,18 @@ public class ListaProductosController {
         List<CategoriaDTO> categoriasDTO = categorias.stream().map(Categoria::toCategoriaDTO).toList();
 
         return ResponseEntity.status(200).body(categoriasDTO);
+    }
+
+    @PostMapping("/{productoId}/favorito")
+    public ResponseEntity<ProductoDTO> setUnsetFavorito(@PathVariable Long productoId) {
+        Usuario usuario = SecurityUtils.getCurrentUser();
+
+        if (usuario == null) {
+            return ResponseEntity.status(403).body(null);
+        }
+
+        productoService.setUnsetFav(usuario, productoId);
+
+        return ResponseEntity.status(200).body(null);
     }
 }
