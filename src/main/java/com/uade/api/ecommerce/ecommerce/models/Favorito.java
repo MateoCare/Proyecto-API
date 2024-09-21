@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Getter
-@IdClass(FavoritoId.class)
+@IdClass(ProductoUsuarioId.class)
 public class Favorito {
     @Id
     private long usuarioId;

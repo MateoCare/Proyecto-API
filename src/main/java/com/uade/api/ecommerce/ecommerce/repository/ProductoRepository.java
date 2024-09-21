@@ -1,7 +1,6 @@
 package com.uade.api.ecommerce.ecommerce.repository;
 
 import com.uade.api.ecommerce.ecommerce.models.Producto;
-import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +19,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query("SELECT p, COUNT(1) as cont FROM Producto p INNER JOIN Favorito f ON p.id = f.productoId GROUP BY p.id ORDER BY cont DESC LIMIT :top")
     public List<Producto> findProductosDestacados(@Param("top") Integer top);
 
-    @Query("SELECT p FROM Producto p")
-    List<Producto> findProductosVistosRecientemente(Usuario usuario);
+    @Query("SELECT p FROM Producto p INNER JOIN HistorialProducto hp ON p.id = hp.productoId WHERE hp.usuarioId = :usuarioId order by hp.date desc")
+    List<Producto> findProductosVistosRecientemente(@Param("usuarioId") long usuarioId);
 }

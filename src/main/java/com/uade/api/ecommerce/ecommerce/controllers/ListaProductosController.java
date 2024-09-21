@@ -66,15 +66,27 @@ public class ListaProductosController {
     }
 
     @PostMapping("/{productoId}/favorito")
-    public ResponseEntity<ProductoDTO> setUnsetFavorito(@PathVariable Long productoId) {
+    public ResponseEntity<ProductoDTO> setUnsetFavorito(@PathVariable(required = true) Long productoId) {
         Usuario usuario = SecurityUtils.getCurrentUser();
 
         if (usuario == null) {
-            return ResponseEntity.status(403).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
 
         productoService.setUnsetFav(usuario, productoId);
 
-        return ResponseEntity.status(200).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @PostMapping("/{productoId}/visto")
+    public ResponseEntity<Void> marcarVisto(@PathVariable(required = true) long productoId) {
+        Usuario usuario = SecurityUtils.getCurrentUser();
+
+        if (usuario == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+
+        productoService.marcarVisto(usuario, productoId);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
