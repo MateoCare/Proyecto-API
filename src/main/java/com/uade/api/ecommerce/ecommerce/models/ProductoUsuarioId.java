@@ -1,6 +1,5 @@
 package com.uade.api.ecommerce.ecommerce.models;
 
-import jakarta.persistence.Embeddable;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FavoritoId {
+public class ProductoUsuarioId {
     private long usuarioId;
     private long productoId;
 }

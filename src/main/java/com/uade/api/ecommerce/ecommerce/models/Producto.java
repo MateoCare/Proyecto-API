@@ -26,8 +26,6 @@ public class Producto {
 
     @ManyToMany private List<Categoria> categoria;
 
-    @OneToMany private List<Favorito> usuariosConFavorito;
-
     public ProductoDTO toProductoDTO() {
         return ProductoDTO.builder().id(id).nombre(nombre).descripcion(descripcion).imagen(imagen).precio(precio).build();
     }
