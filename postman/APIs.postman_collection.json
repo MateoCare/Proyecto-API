@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"usuario\": \"pmorales\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\",\r\n    \"edad\": 24\r\n}",
+					"raw": "{\r\n    \"usuario\": \"pmorales\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -152,6 +152,9 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -163,7 +166,7 @@
 						}
 					]
 				},
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
@@ -174,7 +177,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -182,7 +185,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/producto?categorias=1",
+					"raw": "{{host}}/v1/producto?page=1&rowsPerPage=10&categorias=4",
 					"host": [
 						"{{host}}"
 					],
@@ -192,8 +195,158 @@
 					],
 					"query": [
 						{
-							"key": "categorias",
+							"key": "page",
 							"value": "1"
+						},
+						{
+							"key": "rowsPerPage",
+							"value": "10"
+						},
+						{
+							"key": "categorias",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar productos destacados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/producto/destacados?page=1&rowsPerPage=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"producto",
+						"destacados"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "rowsPerPage",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar productos vistos recientemente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/producto/recientes?page=2&rowsPerPage=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"producto",
+						"recientes"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "rowsPerPage",
+							"value": "10"
 						}
 					]
 				}
@@ -256,6 +409,124 @@
 						"v1",
 						"producto",
 						"categoria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dar/quitar favorito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/producto/3/favorito",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"producto",
+						"3",
+						"favorito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Marcar como visto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/producto/1/visto",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"producto",
+						"1",
+						"visto"
 					]
 				}
 			},
