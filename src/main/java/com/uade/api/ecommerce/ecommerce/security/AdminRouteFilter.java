@@ -29,15 +29,14 @@ public class AdminRouteFilter extends OncePerRequestFilter {
     }
 
     private boolean shouldFilter(HttpServletRequest request) {
-
         var path = request.getServletPath();
         boolean shouldFilter = false;
 
-       if(request.getMethod().equals("POST")){
-           if(path.startsWith("/v1/factura")){
-               shouldFilter = true;
-           }
-       }
+//       if(request.getMethod().equals("POST")){
+//           if(path.equals("/producto")){
+//               shouldFilter = true;
+//           }
+//       }
 
         return shouldFilter;
     }

@@ -16,6 +16,7 @@ public class StockProducto {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
     @Column
     private Double talle;

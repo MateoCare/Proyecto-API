@@ -34,10 +34,10 @@ public class SecurityConfig {
                 UsernamePasswordAuthenticationFilter.class
         );
 
-        httpSecurity.addFilterBefore(
-                adminRouteFilter,
-                UsernamePasswordAuthenticationFilter.class
-        );
+//        httpSecurity.addFilterBefore(
+//                adminRouteFilter,
+//                UsernamePasswordAuthenticationFilter.class
+//        );
 
         httpSecurity
                 .authorizeHttpRequests(auth ->

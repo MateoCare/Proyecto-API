@@ -22,9 +22,10 @@ public class Factura {
     private LocalDate fechaCompra;
 
     @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario comprador;
 
-    @OneToMany
+    @OneToMany(mappedBy = "factura")
     private List<ItemFactura> itemFacturas;
 
 

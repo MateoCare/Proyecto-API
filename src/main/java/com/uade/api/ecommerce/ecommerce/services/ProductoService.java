@@ -38,6 +38,10 @@ public class ProductoService {
         return productoRepository.findByStatusTrue();
     }
 
+    public Producto obtenerProducto(Long id) {
+        return productoRepository.findById(id).orElseGet(null);
+    }
+
     public List<Producto> buscarProductosPorCategoria(List<Long> categorias) {
         return productoRepository.findByCategoriaFiltro(categorias, categorias.size());
     }
@@ -55,12 +59,13 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
-    public Producto addStock(StockDTO stockDTO, Producto producto) throws Exception{
-        if (!producto.isStatus()) {
+    public Producto addStock(StockProducto stock) throws Exception{
+        if (!stock.getProducto().isStatus()) {
             throw new Exception("El producto se encuentra dado de baja");
         }
-        stockService.addStock(stockDTO);
-        return productoRepository.save(producto);
+
+        var resultStock = stockService.addStockNuevo(stock);
+        return resultStock.getProducto();
     }
 
     public void deleteStock(ProductoDTO productoDTO)

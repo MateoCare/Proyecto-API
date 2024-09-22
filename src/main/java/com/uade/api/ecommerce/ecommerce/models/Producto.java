@@ -22,7 +22,8 @@ public class Producto {
     @Column private Double precio;
     @Column private boolean status;
 
-    @OneToMany private List<StockProducto> stockProductos;
+    @OneToMany(mappedBy = "producto")
+    private List<StockProducto> stockProductos;
 
     @ManyToMany private List<Categoria> categoria;
 

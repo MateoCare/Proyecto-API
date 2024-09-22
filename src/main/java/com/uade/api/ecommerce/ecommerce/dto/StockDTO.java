@@ -13,7 +13,6 @@ public class StockDTO {
 
     public StockProducto toStock() {
         return StockProducto.builder()
-                .producto(this.producto)
                 .talle(this.talle)
                 .cantidad(this.cantidad)
                 .build();

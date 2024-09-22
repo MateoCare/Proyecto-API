@@ -17,9 +17,16 @@ public class ItemFactura {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "stock_producto_id")
     private StockProducto stockProducto;
+    @Column
     private int unidad;
+    @Column
     private Double precioUnidad;
+
+    @ManyToOne
+    @JoinColumn(name = "factura_id")
+    private Factura factura;
 
 
     public ItemFacturaDTO toDTO(){

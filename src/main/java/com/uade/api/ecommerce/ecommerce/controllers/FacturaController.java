@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("v1/factura")
+@RequestMapping("/factura")
 public class FacturaController {
 
     @Autowired
@@ -28,6 +28,12 @@ public class FacturaController {
 
     @GetMapping("/{id}")
     public ResponseEntity obtenerFactura(@PathVariable Long id) {
+        System.out.println("trying to get factura");
         return ResponseEntity.ok(facturaService.obtenerFactura(id));
+    }
+
+    @GetMapping()
+    public ResponseEntity obtenerTodasFacturas() {
+        return ResponseEntity.ok(facturaService.obtenerFacturas());
     }
 }

@@ -78,4 +78,8 @@ public class FacturaService {
     public Factura obtenerFactura(Long id){
         return facturaRepository.findById(id).orElse(null);
     }
+
+    public List<Factura> obtenerFacturas(){
+        return facturaRepository.findAll();
+    }
 }
