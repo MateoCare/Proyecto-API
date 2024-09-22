@@ -23,7 +23,7 @@ public class ProductController {
     private StockService stockService;
 
     @PostMapping("/producto")
-    public ResponseEntity agregarProducto(@RequestBody ProductoDTO productoDTO, StockDTO stockDTO) {
+    public ResponseEntity agregarProducto(@RequestBody ProductoDTO productoDTO) {
 
         var producto = productoService.addProducto(productoDTO.toProducto());
 

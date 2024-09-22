@@ -23,8 +23,22 @@ public class SecurityConfig {
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
+    @Autowired
+    private AdminRouteFilter adminRouteFilter;
+
     @Bean
     public SecurityFilterChain firstFilter(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity.addFilterBefore(
+                jwtTokenFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
+
+        httpSecurity.addFilterBefore(
+                adminRouteFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
+
         httpSecurity
                 .authorizeHttpRequests(auth ->
                         auth
@@ -33,14 +47,11 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .csrf(crsf -> crsf.disable())
-                .addFilterBefore(
-                        jwtTokenFilter,
-                        UsernamePasswordAuthenticationFilter.class
-                )
                 .headers(head -> head.frameOptions(frame -> frame.disable()));
 
         return httpSecurity.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationProvider() {

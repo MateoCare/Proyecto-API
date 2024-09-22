@@ -1,5 +1,6 @@
 package com.uade.api.ecommerce.ecommerce.security;
 
+import com.uade.api.ecommerce.ecommerce.models.Rol;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,5 +31,9 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return usuario.getUsuario();
+    }
+
+    public Rol getRole() {
+        return usuario.getRol();
     }
 }
