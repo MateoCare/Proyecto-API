@@ -35,10 +35,10 @@ public class StockService {
 
 //Del
 
-    public StockProducto addStockProductoExistente(StockDTO stockDTO) {
+    public StockProducto addStockProductoExistente(StockProducto stockAgregar) {
         //Devuelve Stock del producto ORIGINAL que esta persistido en la BD
-        StockProducto stockProducto = stockProductoRepository.findById(stockDTO.getId()).get();
-        int suma = stockProducto.getCantidad() + stockDTO.getCantidad(); //suma cantidad persistente y la entrante
+        StockProducto stockProducto = stockProductoRepository.findById(stockAgregar.getId()).get();
+        int suma = stockProducto.getCantidad() + stockAgregar.getCantidad(); //suma cantidad persistente y la entrante
         stockProducto.setCantidad(suma); //setea el stock nuevo
 
         return stockProductoRepository.save(stockProducto);

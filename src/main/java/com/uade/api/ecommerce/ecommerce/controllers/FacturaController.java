@@ -28,8 +28,8 @@ public class FacturaController {
 
     @GetMapping("/{id}")
     public ResponseEntity obtenerFactura(@PathVariable Long id) {
-        System.out.println("trying to get factura");
-        return ResponseEntity.ok(facturaService.obtenerFactura(id));
+        var factura = facturaService.obtenerFactura(id);
+        return ResponseEntity.ok(factura.toDTO());
     }
 
     @GetMapping()

@@ -20,10 +20,8 @@ public class FacturaService {
 
     @Autowired
     private FacturaRepository facturaRepository;
-
     @Autowired
     private ItemFacturaRepository itemFacturaRepository;
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -34,7 +32,7 @@ public class FacturaService {
 
 
     public Factura realizarCompra(CarritoDTO carritoDTO) throws Exception {
-        var factura = Factura.builder();
+
 
         Usuario comprador = userRepository.findById(carritoDTO.getUsuarioId()).orElseGet(()->null);
         List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
@@ -52,27 +50,28 @@ public class FacturaService {
                 })
                 .toList();
 
-//        //Esto funca por ahora, pero hay que preveer un rollback
-//        for(var itemFactura: listItemsFactura){
-//            stockService.restoStock(itemFactura.getStockProducto().getId(), itemFactura.getUnidad());
-//        }
-
         List<StockProducto> listaStockProductos = listItemsFactura.stream().map(item -> {
             var stock = item.getStockProducto();
             stock.setCantidad(stock.getCantidad() - item.getUnidad());
             return stock;
         }).toList();
-
         stockService.batchActualizar(listaStockProductos);
+
+        var factura = Factura.builder()
+                .comprador(comprador)
+                .fechaCompra(LocalDate.now());
+
+        var facturaSaved = facturaRepository.save(factura.build());
+
+        for (ItemFactura itemFactura : listItemsFactura) {
+            itemFactura.setFactura(facturaSaved);
+        }
 
         itemFacturaRepository.saveAll(listItemsFactura);
 
-        factura
-                .fechaCompra(LocalDate.now())
-                .comprador(comprador)
-                .itemFacturas(listItemsFactura);
+        facturaSaved.setItemFacturas(listItemsFactura);
 
-        return facturaRepository.save(factura.build());
+        return facturaSaved;
     }
 
     public Factura obtenerFactura(Long id){

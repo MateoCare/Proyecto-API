@@ -28,6 +28,14 @@ public class Producto {
     @ManyToMany private List<Categoria> categoria;
 
     public ProductoDTO toProductoDTO() {
-        return ProductoDTO.builder().id(id).nombre(nombre).descripcion(descripcion).imagen(imagen).precio(precio).build();
+        return ProductoDTO.builder()
+                .id(id)
+                .nombre(nombre)
+                .descripcion(descripcion)
+                .imagen(imagen)
+                .precio(precio)
+                .categorias(this.categoria.stream().map(Categoria::getNombre).toList())
+                .stock(stockProductos.stream().map(StockProducto::toStockDTO).toList())
+                .build();
     }
 }

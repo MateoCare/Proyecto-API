@@ -25,7 +25,7 @@ public class ItemFactura {
     private Double precioUnidad;
 
     @ManyToOne
-    @JoinColumn(name = "factura_id")
+//    @JoinColumn(name = "factura_id")
     private Factura factura;
 
 

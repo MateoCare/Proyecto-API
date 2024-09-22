@@ -26,6 +26,10 @@ public class StockProducto {
 
 
     public StockDTO toStockDTO(){
-        return new StockDTO();
+        return StockDTO.builder()
+                .id(id)
+                .cantidad(cantidad)
+                .talle(talle)
+                .build();
     }
 }

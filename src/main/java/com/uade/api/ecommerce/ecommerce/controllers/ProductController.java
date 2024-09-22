@@ -22,18 +22,20 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity obtenerProducto(@PathVariable Long id) {
-        return ResponseEntity.ok(productoService.obtenerProducto(id));
+
+        var producto = productoService.obtenerProducto(id).toProductoDTO();
+        return ResponseEntity.ok(producto);
     }
 
     @PostMapping()
     public ResponseEntity agregarProducto(@RequestBody ProductoDTO productoDTO) {
 
         var producto = productoService.addProducto(productoDTO.toProducto());
-
-        stockService.initializeStock(productoDTO.getTalles(), producto);
+        var listaTalles = productoDTO.getStock().stream().map(StockDTO::getTalle).toList();
+        stockService.initializeStock(listaTalles, producto);
         //TODO
 
-        return ResponseEntity.ok().body(producto);
+        return ResponseEntity.ok().body(producto.toProductoDTO());
     }
 
     @PostMapping("/{productoId}/stock")
@@ -45,13 +47,20 @@ public class ProductController {
 
         var response = productoService.addStock(stock);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response.toProductoDTO());
     }
 
+    @PostMapping("/{productoId}/stock/{stockId}")
+    public ResponseEntity agregarCantidadStock(@RequestBody StockDTO stockDTO, @PathVariable Long productoId, @PathVariable Long stockId) throws Exception {
+        var stock = stockDTO.toStock();
+        stock.setId(stockId);
+        var producto = productoService.obtenerProducto(productoId);
+    
+        stock.setProducto(producto);
 
+        var response = productoService.addStockExistente(stock);
 
-    /**@PutMapping("/aumentoCantProducto")
-    public ResponseEntity aumentarCantStock(@RequestBody StockDTO stockDTO, Producto producto) throws Exception {
-        productoService.addStock(stockDTO, producto);
-    }**/
+        return ResponseEntity.ok(response.toProductoDTO());
+    }
+
 }

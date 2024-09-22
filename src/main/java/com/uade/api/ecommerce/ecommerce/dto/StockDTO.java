@@ -2,12 +2,12 @@ package com.uade.api.ecommerce.ecommerce.dto;
 
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
+import lombok.Builder;
 import lombok.Data;
 
-@Data
+@Data@Builder
 public class StockDTO {
     private Long id;
-    private Producto producto;
     private Double talle;
     private int cantidad;
 

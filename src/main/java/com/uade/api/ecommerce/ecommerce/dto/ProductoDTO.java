@@ -15,7 +15,8 @@ public class ProductoDTO {
     private String descripcion;
     private String imagen;
     private Double precio;
-    private List<Double> talles;
+    private List<String> categorias;
+    private List<StockDTO> stock;
 
     public Producto toProducto(){
 

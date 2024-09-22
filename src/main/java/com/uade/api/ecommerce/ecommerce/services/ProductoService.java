@@ -68,6 +68,15 @@ public class ProductoService {
         return resultStock.getProducto();
     }
 
+    public Producto addStockExistente(StockProducto stock) throws Exception{
+        if (!stock.getProducto().isStatus()) {
+            throw new Exception("El producto se encuentra dado de baja");
+        }
+
+        var resultStock = stockService.addStockProductoExistente(stock);
+        return resultStock.getProducto();
+    }
+
     public void deleteStock(ProductoDTO productoDTO)
     {
         var stock = stockProductoRepository.findById(productoDTO.getId()).get();
