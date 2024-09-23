@@ -21,6 +21,6 @@ public class UserController
     public ResponseEntity obtenerUsuario(@RequestParam Long id)
     {
         Usuario user = userRepository.findById(id).get();
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user.toUsuarioDTO());
     }
 }

@@ -1,5 +1,6 @@
 package com.uade.api.ecommerce.ecommerce.security;
 
+import com.uade.api.ecommerce.ecommerce.exceptions.ForbiddenRoute;
 import com.uade.api.ecommerce.ecommerce.models.Rol;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
@@ -20,7 +21,8 @@ public class AdminRouteFilter extends OncePerRequestFilter {
         if(this.shouldFilter(request)){
             Usuario user = SecurityUtils.getCurrentUser();
             if(user.getRol() != Rol.ADMIN){
-                throw new ServletException("User does not have permission to access this resource");
+                this.handleException(response,new ForbiddenRoute());
+                return;
             }
         }
 
@@ -60,5 +62,15 @@ public class AdminRouteFilter extends OncePerRequestFilter {
             }
         }
         return false;
+    }
+
+    private void handleException(HttpServletResponse response, Exception ex) throws IOException {
+        // Set the response status and content when an exception occurs
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setContentType("application/json");
+
+
+        // Write the response body
+        response.getOutputStream().print(ex.getMessage());
     }
 }

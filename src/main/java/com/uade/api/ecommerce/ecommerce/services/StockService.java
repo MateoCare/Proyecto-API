@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
@@ -79,8 +80,13 @@ public class StockService {
     }
 
 
-    public StockProducto obtenerStock(long id){
-        return stockProductoRepository.findById(id).get();
+    public StockProducto obtenerStock(long id) throws ResourceNotFound {
+        var result = stockProductoRepository.findById(id);
+        if(result.isEmpty()){
+            throw new ResourceNotFound(id);
+        }
+
+        return result.get();
     }
     
 

@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.controllers;
 
 import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.services.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,18 +17,14 @@ public class FacturaController {
     private FacturaService facturaService;
 
     @PostMapping()
-    public ResponseEntity crearFactura(@RequestBody CarritoDTO carritoDTO){
-        try{
-            var factura = facturaService.realizarCompra(carritoDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(factura.toDTO());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); //Mejorar el manejo de la excepcion
-        }
+    public ResponseEntity crearFactura(@RequestBody CarritoDTO carritoDTO) throws Exception {
+        var factura = facturaService.realizarCompra(carritoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(factura.toDTO());
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity obtenerFactura(@PathVariable Long id) {
+    public ResponseEntity obtenerFactura(@PathVariable Long id) throws ResourceNotFound {
         var factura = facturaService.obtenerFactura(id);
         return ResponseEntity.ok(factura.toDTO());
     }

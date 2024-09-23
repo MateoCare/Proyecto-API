@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6f0aa375-6d85-491a-8651-b3fd26742c91",
+		"_postman_id": "255fcb3d-964b-425b-83a9-ce407648957f",
 		"name": "APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18791900"
+		"_exporter_id": "36482484"
 	},
 	"item": [
 		{
@@ -125,13 +125,60 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/factura",
+					"raw": "{{host}}/factura",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"v1",
 						"factura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener factura",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}/factura/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"factura",
+						"1"
 					]
 				}
 			},
@@ -527,6 +574,123 @@
 						"producto",
 						"1",
 						"visto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar stock a producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"talle\":20.1,\n    \"cantidad\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/producto/1/stock",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"producto",
+						"1",
+						"stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sumar stock a stock existente",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cantidad\":5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/producto/1/stock/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"producto",
+						"1",
+						"stock",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener producto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"talle\":20.1,\n    \"cantidad\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/producto/10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"producto",
+						"10"
 					]
 				}
 			},

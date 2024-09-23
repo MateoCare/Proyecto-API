@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.Factura;
 import com.uade.api.ecommerce.ecommerce.models.ItemFactura;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
@@ -24,8 +25,6 @@ public class FacturaService {
     private ItemFacturaRepository itemFacturaRepository;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private StockProductoRepository stockProductoRepository;
 
     @Autowired
     private StockService stockService;
@@ -35,10 +34,19 @@ public class FacturaService {
 
 
         Usuario comprador = userRepository.findById(carritoDTO.getUsuarioId()).orElseGet(()->null);
+
+        if(comprador == null){
+            throw new ResourceNotFound(carritoDTO.getUsuarioId());
+        }
         List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
                 .map(itemDto -> {
                     //remplazar con llamada a servicio correspondiente
-                    var productoStock = stockService.obtenerStock(itemDto.getStockProductoId());
+                    StockProducto productoStock = null;
+                    try {
+                        productoStock = stockService.obtenerStock(itemDto.getStockProductoId());
+                    } catch (ResourceNotFound e) {
+                        throw new RuntimeException(e);
+                    }
 
                     var itemFactura = ItemFactura.builder()
                             .stockProducto(productoStock)
@@ -74,8 +82,12 @@ public class FacturaService {
         return facturaSaved;
     }
 
-    public Factura obtenerFactura(Long id){
-        return facturaRepository.findById(id).orElse(null);
+    public Factura obtenerFactura(Long id) throws ResourceNotFound {
+        var result = facturaRepository.findById(id);
+        if(result.isEmpty()){
+            throw new ResourceNotFound(id);
+        }
+        return result.get();
     }
 
     public List<Factura> obtenerFacturas(){
