@@ -55,7 +55,7 @@ public class ProductController {
         var stock = stockDTO.toStock();
         stock.setId(stockId);
         var producto = productoService.obtenerProducto(productoId);
-    
+
         stock.setProducto(producto);
 
         var response = productoService.addStockExistente(stock);

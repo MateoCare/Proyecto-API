@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+
+//Esta controlador no se utiliza, estos metodos pasan por controlador de producto
+
 @RestController
 @RequestMapping
 public class StockController
@@ -31,10 +34,10 @@ public class StockController
 
     }**/
 
-    @PostMapping("/restoStock")
-    public void restoStock(@PathVariable Long id, @RequestBody int restaCantidad) throws Exception {
-        stockService.restoStock(id, restaCantidad);
-    }
+//    @PostMapping("/restoStock")
+//    public void restoStock(@PathVariable Long id, @RequestBody int restaCantidad) throws Exception {
+//        stockService.restoStock(id, restaCantidad);
+//    }
 
 
 
