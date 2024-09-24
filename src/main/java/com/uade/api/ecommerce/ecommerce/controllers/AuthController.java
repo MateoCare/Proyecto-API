@@ -54,11 +54,8 @@ public class AuthController {
     public ResponseEntity<UsuarioDTO> guardarPersona(@Valid @RequestBody UsuarioDTO user) {
         try{
             // Verifica si algún campo está vacío o contiene solo espacios en blanco
-            if (user.getNombre().trim().isEmpty() ||
-                    user.getApellido().trim().isEmpty() ||
-                    user.getEmail().trim().isEmpty() ||
-                    user.getPassword().trim().isEmpty() ||
-                    user.getUsuario().trim().isEmpty()) {
+            if (user.getNombre().trim().isEmpty() || user.getApellido().trim().isEmpty() || user.getEmail().trim().isEmpty() ||
+                    user.getPassword().trim().isEmpty() || user.getUsuario().trim().isEmpty()) {
                 throw new CamposVaciosException("No se pueden dejar espacios vacíos");
             }
             Usuario usuario = user.toUsuario();
