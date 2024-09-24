@@ -37,9 +37,15 @@ public class AdminRouteFilter extends OncePerRequestFilter {
                 "/producto/\\d+/stock/\\d",
         };
 
-        String[] endpointsDELETE = {
+        String[] endpointsPUT = {
                 "/producto/\\d",
                 "/producto/\\d+/stock",
+                "/producto/\\d+/stock/\\d",
+                "/producto/\\d+/alta",
+        };
+
+        String[] endpointsDELETE = {
+                "/producto/\\d",
                 "/producto/\\d+/stock/\\d",
         };
 
@@ -49,6 +55,8 @@ public class AdminRouteFilter extends OncePerRequestFilter {
            shouldFilter = matchOverPatterns(endpointsPOST, path);
        }else if(request.getMethod().equals("DELETE")){
            shouldFilter = matchOverPatterns(endpointsDELETE, path);
+       }else if(request.getMethod().equals("PUT")){
+           shouldFilter = matchOverPatterns(endpointsPUT, path);
        }
 
         return shouldFilter;
