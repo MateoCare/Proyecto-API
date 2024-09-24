@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 public class CarritoDTO {
-    private Long usuarioId;
     private List<ItemCarritoDTO> listItems;
 }
 

@@ -10,6 +10,7 @@ import com.uade.api.ecommerce.ecommerce.repository.FacturaRepository;
 import com.uade.api.ecommerce.ecommerce.repository.ItemFacturaRepository;
 import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.UserRepository;
+import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +34,6 @@ public class FacturaService {
     public Factura realizarCompra(CarritoDTO carritoDTO) throws Exception {
 
 
-        Usuario comprador = userRepository.findById(carritoDTO.getUsuarioId()).orElseGet(()->null);
-
-        if(comprador == null){
-            throw new ResourceNotFound(carritoDTO.getUsuarioId());
-        }
         List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
                 .map(itemDto -> {
                     //remplazar con llamada a servicio correspondiente
@@ -65,6 +61,7 @@ public class FacturaService {
         }).toList();
         stockService.batchActualizar(listaStockProductos);
 
+        Usuario comprador = SecurityUtils.getCurrentUser();
         var factura = Factura.builder()
                 .comprador(comprador)
                 .fechaCompra(LocalDate.now());
