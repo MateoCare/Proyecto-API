@@ -87,7 +87,8 @@ public class FacturaService {
         return result.get();
     }
 
-    public List<Factura> obtenerFacturas(){
-        return facturaRepository.findAll();
+    public List<Factura> obtenerFacturas(Usuario comprador) {
+
+        return facturaRepository.findByComprador(comprador);
     }
 }

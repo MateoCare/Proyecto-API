@@ -31,8 +31,5 @@ public class FacturaController {
         return ResponseEntity.ok(factura.toDTO());
     }
 
-    @GetMapping()
-    public ResponseEntity obtenerTodasFacturas() {
-        return ResponseEntity.ok(facturaService.obtenerFacturas());
-    }
+
 }
