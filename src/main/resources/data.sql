@@ -7,14 +7,14 @@ INSERT INTO USUARIO(USUARIO, PASSWORD, EMAIL, FECHA_NACIMIENTO, NOMBRE, APELLIDO
     ('admin2', '$2a$10$bhoNyi0sxaGQu.50zOiUL.SKpSPGHytwGruHhYYP2hSDZpkYHEIri', 'admin2@admin.com', '1975-07-30', 'Admin', 'Second', 49, 0);
 
 
-INSERT INTO PRODUCTO(ID, NOMBRE, DESCRIPCION, IMAGEN, PRECIO, STATUS) VALUES
-    (1, 'Adidas JumpCrazy', 'Modo rana all day', 'jumpcrazy.jpg', 99.99, 1),
-    (2, 'Vans Classics', 'Un clasicon', 'vansclassic.jpg', 99.99, 1),
-    (3, 'DC Big Skater', 'Para ese fan que le encanta quemar zapas caras con la lija del board', 'dcbigskater.jpg', 299.99, 1),
-    (4, 'Nike Air Max', 'Comodidad y estilo para todos', 'airmax.jpg', 149.99, 1),
-    (5, 'Converse All Star', 'El clásico de siempre, nunca pasa de moda', 'allstar.jpg', 79.99, 1),
-    (6, 'Reebok Classic', 'El modelo retro que sigue vigente', 'reebokclassic.jpg', 89.99, 1),
-    (7, 'Puma Suede', 'Elegancia y rendimiento en uno', 'pumasuede.jpg', 129.99, 1);
+INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, IMAGEN, PRECIO, STATUS) VALUES
+    ('Adidas JumpCrazy', 'Modo rana all day', 'jumpcrazy.jpg', 99.99, 1),
+    ( 'Vans Classics', 'Un clasicon', 'vansclassic.jpg', 99.99, 1),
+    ( 'DC Big Skater', 'Para ese fan que le encanta quemar zapas caras con la lija del board', 'dcbigskater.jpg', 299.99, 1),
+    ( 'Nike Air Max', 'Comodidad y estilo para todos', 'airmax.jpg', 149.99, 1),
+    ( 'Converse All Star', 'El clásico de siempre, nunca pasa de moda', 'allstar.jpg', 79.99, 1),
+    ( 'Reebok Classic', 'El modelo retro que sigue vigente', 'reebokclassic.jpg', 89.99, 1),
+    ( 'Puma Suede', 'Elegancia y rendimiento en uno', 'pumasuede.jpg', 129.99, 1);
 
 INSERT INTO STOCK_PRODUCTO(PRODUCTO_ID, TALLE, CANTIDAD) VALUES
     (1, 40, 3), ---ADIDAS JUMPCRAZY

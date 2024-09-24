@@ -7,694 +7,874 @@
 	},
 	"item": [
 		{
-			"name": "Registrar",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"usuario\": \"pmorales\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/auth/registro",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"auth",
-						"registro"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Log in",
-			"event": [
+			"name": "Producto",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"if (pm.response.responseSize === 0) {\r",
-							"    return\r",
-							"}\r",
-							"\r",
-							"let json = pm.response.json();\r",
-							"if (json && json.jwtToken) {\r",
-							"    pm.environment.set(\"token\", json.jwtToken)\r",
-							"}\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"user\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/auth/login",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"auth",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Crear factura",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Stock",
+					"item": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/factura",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"factura"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener factura",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "{{host}}/factura/1",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"factura",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Consultar productos",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/producto?page=1&rowsPerPage=10&categorias=4",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"producto"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "1"
+							"name": "Agregar stock a producto",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"talle\":20.1,\n    \"cantidad\":2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/producto/1/stock",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"producto",
+										"1",
+										"stock"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "rowsPerPage",
-							"value": "10"
+							"name": "Sumar stock a stock existente",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cantidad\":5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/producto/1/stock/1",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"producto",
+										"1",
+										"stock",
+										"1"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "categorias",
-							"value": "4"
+							"name": "Eliminar stock",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/producto/1/stock/1",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"producto",
+										"1",
+										"stock",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Consultar productos destacados",
-			"event": [
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Consultar productos",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/producto/destacados?page=1&rowsPerPage=10",
-					"host": [
-						"{{host}}"
 					],
-					"path": [
-						"v1",
-						"producto",
-						"destacados"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "1"
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "rowsPerPage",
-							"value": "10"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Consultar productos vistos recientemente",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
 						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/producto/recientes?page=2&rowsPerPage=10",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"producto",
-						"recientes"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "2"
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "rowsPerPage",
-							"value": "10"
+						"url": {
+							"raw": "{{host}}/v1/producto?page=1&rowsPerPage=10&categorias=4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"producto"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rowsPerPage",
+									"value": "10"
+								},
+								{
+									"key": "categorias",
+									"value": "4"
+								}
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Consultar categorias",
-			"event": [
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Consultar productos destacados",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/producto/categoria",
-					"host": [
-						"{{host}}"
 					],
-					"path": [
-						"v1",
-						"producto",
-						"categoria"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Dar/quitar favorito",
-			"event": [
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/producto/destacados?page=1&rowsPerPage=10",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"producto",
+								"destacados"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "rowsPerPage",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "Consultar productos vistos recientemente",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/producto/3/favorito",
-					"host": [
-						"{{host}}"
 					],
-					"path": [
-						"v1",
-						"producto",
-						"3",
-						"favorito"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Marcar como visto",
-			"event": [
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/producto/recientes?page=2&rowsPerPage=10",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"producto",
+								"recientes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "rowsPerPage",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"\r",
-							""
+					"name": "Consultar categorias",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
 						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/producto/categoria",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"producto",
+								"categoria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dar/quitar favorito",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/producto/1/visto",
-					"host": [
-						"{{host}}"
 					],
-					"path": [
-						"v1",
-						"producto",
-						"1",
-						"visto"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/producto/3/favorito",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"producto",
+								"3",
+								"favorito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Marcar como visto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/producto/1/visto",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"producto",
+								"1",
+								"visto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener producto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"talle\":20.1,\n    \"cantidad\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/producto/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/producto/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Produco",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\":\"Vans Vans\",\n    \"descripcion\":\"abc\",\n    \"imagen\":\"test.jpg\",\n    \"precio\":200.0,\n    \"stock\": [\n        {\n            \"talle\":40\n        },\n        {\n            \"talle\":40.5\n        }\n    ],\n    \"categoria\":[\"abc\", \"dce\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/producto",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"nombre\": \"Adidas Jy\",\n    \"descripcion\": \"Modo ra all day\",\n    \"imagen\": \"test.jpg\",\n    \"precio\": 919.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/producto/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alta producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/producto/1/alta",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto",
+								"1",
+								"alta"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Agregar stock a producto",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+			"name": "Factura",
+			"item": [
+				{
+					"name": "Crear factura",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"talle\":20.1,\n    \"cantidad\":2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/producto/1/stock",
-					"host": [
-						"{{host}}"
 					],
-					"path": [
-						"producto",
-						"1",
-						"stock"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/factura",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"factura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener factura",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{host}}/factura/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"factura",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Sumar stock a stock existente",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"pmorales\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/registro",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"registro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.responseSize === 0) {\r",
+									"    return\r",
+									"}\r",
+									"\r",
+									"let json = pm.response.json();\r",
+									"if (json && json.jwtToken) {\r",
+									"    pm.environment.set(\"token\", json.jwtToken)\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"cantidad\":5\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/producto/1/stock/1",
-					"host": [
-						"{{host}}"
 					],
-					"path": [
-						"producto",
-						"1",
-						"stock",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener producto",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
 						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"talle\":20.1,\n    \"cantidad\":2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/producto/10",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"producto",
-						"10"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

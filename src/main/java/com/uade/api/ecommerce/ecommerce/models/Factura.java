@@ -39,7 +39,7 @@ public class Factura {
         }
 
         FacturaDTO facturaDTO = FacturaDTO.builder()
-                .idUsuario(comprador.getId())
+                .nombreUsuario(String.format("%s %s", comprador.getNombre(), comprador.getApellido()))
                 .items(itemFacturas.stream()
                         .map(ItemFactura::toDTO)
                         .toList())

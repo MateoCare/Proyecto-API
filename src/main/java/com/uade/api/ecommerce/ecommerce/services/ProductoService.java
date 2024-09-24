@@ -53,7 +53,12 @@ public class ProductoService {
 
     public Producto addProducto(Producto producto) {
         producto.setStatus(true);
-        return productoRepository.save(producto);
+        var productoSaved = productoRepository.save(producto);
+
+        var savedStock = stockService.initializeStock(productoSaved);
+        producto.setStockProductos(savedStock);
+        return producto;
+
     }
 
     public Producto altaProducto(Long productoId) throws Exception {
@@ -127,9 +132,11 @@ public class ProductoService {
     }
 
 
-    public Producto actualizarProducto(Producto producto) throws ResourceNotFound {
+    public Producto actualizarProducto(Producto producto) throws Exception {
         var productoFound = this.obtenerProducto(producto.getId());
-
+        if (!productoFound.isStatus()) {
+            throw new Exception("El producto se encuentra dado de baja");
+        }
         productoFound.setNombre(producto.getNombre());
         productoFound.setDescripcion(producto.getDescripcion());
         productoFound.setPrecio(producto.getPrecio());

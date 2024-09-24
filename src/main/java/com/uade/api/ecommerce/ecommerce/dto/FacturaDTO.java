@@ -10,7 +10,7 @@ import java.util.List;
 @Data@Builder
 public class FacturaDTO {
 
-    private Long idUsuario;
+    private String nombreUsuario;
     private List<ItemFacturaDTO> items;
     private Double total;
     private LocalDate fechaCompra;

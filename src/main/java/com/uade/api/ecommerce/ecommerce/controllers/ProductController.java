@@ -33,9 +33,7 @@ public class ProductController {
     public ResponseEntity agregarProducto(@RequestBody ProductoDTO productoDTO) {
 
         var producto = productoService.addProducto(productoDTO.toProducto());
-        var listaTalles = productoDTO.getStock().stream().map(StockDTO::getTalle).toList();
-        stockService.initializeStock(listaTalles, producto);
-        //TODO
+//        var listaTalles = productoDTO.getStock().stream().map(StockDTO::getTalle).toList();
 
         return ResponseEntity.ok().body(producto.toProductoDTO());
     }
@@ -78,7 +76,9 @@ public class ProductController {
 
     @DeleteMapping("/{productoId}")
     public ResponseEntity darBajaProducto(@PathVariable Long productoId) throws Exception {
-        return ResponseEntity.ok(productoService.bajaProducto(productoId));
+        var response = productoService.bajaProducto(productoId);
+
+        return ResponseEntity.ok(response.toProductoDTO());
     }
 
 
@@ -89,7 +89,7 @@ public class ProductController {
         return ResponseEntity.ok(null);
     }
 
-    @PutMapping("/{idProducto}")
+    @PutMapping("/{idProducto}/alta")
     public ResponseEntity altaProducto(@PathVariable Long idProducto) throws Exception {
         var response = productoService.altaProducto(idProducto);
 

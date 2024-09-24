@@ -34,8 +34,8 @@ public class Producto {
                 .descripcion(descripcion)
                 .imagen(imagen)
                 .precio(precio)
-                .categorias(this.categoria.stream().map(Categoria::getNombre).toList())
-                .stock(stockProductos.stream().map(StockProducto::toStockDTO).toList())
+                .categorias(this.categoria != null ? this.categoria.stream().map(Categoria::getNombre).toList() : null)
+                .stock(this.stockProductos != null ? stockProductos.stream().map(StockProducto::toStockDTO).toList(): null)
                 .build();
     }
 }

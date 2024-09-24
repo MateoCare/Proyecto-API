@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.dto;
 
 import com.uade.api.ecommerce.ecommerce.models.Producto;
+import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,6 +26,7 @@ public class ProductoDTO {
                 .descripcion(this.descripcion)
                 .imagen(this.imagen)
                 .precio(this.precio)
+                .stockProductos(this.stock != null ? this.stock.stream().map(StockDTO::toStock).toList(): null)
                 .build();
     }
 }

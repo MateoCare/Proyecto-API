@@ -9,6 +9,7 @@ import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,15 +19,18 @@ public class StockService {
     @Autowired
     private StockProductoRepository stockProductoRepository;
 
-    public void initializeStock(List<Double> talles, Producto producto) {
+    public List<StockProducto> initializeStock(Producto producto) {
 
-        for(Double talle : talles) {
-            StockProducto stockProducto = new StockProducto();
+        List<StockProducto> stockProductos = new ArrayList<>();
+        for(StockProducto stockProducto : producto.getStockProductos()) {
             stockProducto.setProducto(producto);
             stockProducto.setCantidad(0);
-            stockProducto.setTalle(talle);
-            stockProductoRepository.save(stockProducto);
+//            stockProducto.setTalle(talle);
+
+            stockProductos.add(stockProducto);
         }
+        var listaSaved = stockProductoRepository.saveAll(stockProductos);
+        return listaSaved;
     }
 
 
