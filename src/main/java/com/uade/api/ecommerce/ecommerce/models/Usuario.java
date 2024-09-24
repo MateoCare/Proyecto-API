@@ -43,6 +43,7 @@ public class Usuario {
     @Column
     private Rol rol;
 
+
     public LoginDTO toLoginDto() {
         return new LoginDTO(usuario, password);
     }

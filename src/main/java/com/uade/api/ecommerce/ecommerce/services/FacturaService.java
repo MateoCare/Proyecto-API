@@ -31,9 +31,8 @@ public class FacturaService {
     private StockService stockService;
 
 
-    public Factura realizarCompra(CarritoDTO carritoDTO) throws Exception {
-
-
+    public Factura realizarCompra(CarritoDTO carritoDTO) throws Exception
+    {
         List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
                 .map(itemDto -> {
                     //remplazar con llamada a servicio correspondiente
@@ -68,7 +67,8 @@ public class FacturaService {
 
         var facturaSaved = facturaRepository.save(factura.build());
 
-        for (ItemFactura itemFactura : listItemsFactura) {
+        for (ItemFactura itemFactura : listItemsFactura)
+        {
             itemFactura.setFactura(facturaSaved);
         }
 
@@ -79,16 +79,18 @@ public class FacturaService {
         return facturaSaved;
     }
 
-    public Factura obtenerFactura(Long id) throws ResourceNotFound {
+    public Factura obtenerFactura(Long id) throws ResourceNotFound
+    {
         var result = facturaRepository.findById(id);
-        if(result.isEmpty()){
+        if(result.isEmpty())
+        {
             throw new ResourceNotFound(id);
         }
         return result.get();
     }
 
-    public List<Factura> obtenerFacturas(Usuario comprador) {
-
+    public List<Factura> obtenerFacturas(Usuario comprador)
+    {
         return facturaRepository.findByComprador(comprador);
     }
 }

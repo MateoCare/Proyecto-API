@@ -19,15 +19,19 @@ public class FacturaController {
     private FacturaService facturaService;
 
     @PostMapping()
-    public ResponseEntity crearFactura(@RequestBody CarritoDTO carritoDTO) throws Exception {
+    public ResponseEntity crearFactura(@RequestBody CarritoDTO carritoDTO) throws Exception
+    {
         var factura = facturaService.realizarCompra(carritoDTO);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(factura.toDTO());
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity obtenerFactura(@PathVariable Long id) throws ResourceNotFound {
+    public ResponseEntity obtenerFactura(@PathVariable Long id) throws ResourceNotFound
+    {
         var factura = facturaService.obtenerFactura(id);
+
         return ResponseEntity.ok(factura.toDTO());
     }
 
