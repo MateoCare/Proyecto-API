@@ -20,7 +20,7 @@ public class EliminarHistorialAntiguoJob {
     @Autowired
     private HistorialProductosService historialProductosService;
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 120000)
     public void eliminarRegistrosAntiguosSiEsNecesario() {
         log.info("EliminarHistorialAntiguoJob: se limpian los registros antiguos del historial de vistos");
 

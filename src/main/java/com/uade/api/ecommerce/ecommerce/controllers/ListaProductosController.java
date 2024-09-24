@@ -2,17 +2,19 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 
 import com.uade.api.ecommerce.ecommerce.dto.CategoriaDTO;
 import com.uade.api.ecommerce.ecommerce.dto.ErrorDTO;
+import com.uade.api.ecommerce.ecommerce.dto.PageDTO;
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.PaginaFueraDelLimiteException;
+import com.uade.api.ecommerce.ecommerce.exceptions.ValidationException;
 import com.uade.api.ecommerce.ecommerce.models.Categoria;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.services.CategoriaService;
-import com.uade.api.ecommerce.ecommerce.services.ProductoService;
+import com.uade.api.ecommerce.ecommerce.services.ListaProductosService;
 import com.uade.api.ecommerce.ecommerce.util.PaginationUtils;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ import java.util.List;
 public class ListaProductosController {
 
     @Autowired
-    private ProductoService productoService;
+    private ListaProductosService listaProductoService;
 
     @Autowired
     private CategoriaService categoriaService;
@@ -33,52 +35,40 @@ public class ListaProductosController {
     public ResponseEntity<?> listarProductosPorCategoria(@RequestParam int page,
                                                                          @RequestParam int rowsPerPage,
                                                                          @RequestParam(name = "categorias", required
-                                                                                 = false) List<Long> categorias) {
+                                                                                 = false) List<Long> categorias) throws ValidationException, PaginaFueraDelLimiteException {
         if (rowsPerPage == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("rowsPerPage debe ser mayor a 0"));
+            throw new ValidationException("rowsPerPage debe ser mayor a 0");
         }
 
-        List<Producto> productos;
+        Page<Producto> productos = null;
         if (categorias == null) {
-            productos = productoService.findAll();
+            productos = listaProductoService.buscarProductos(page, rowsPerPage);
         } else {
-            productos = productoService.buscarProductosPorCategoria(categorias);
+            productos = listaProductoService.buscarProductosPorCategoria(categorias, page, rowsPerPage);
         }
 
-        try {
-            productos = PaginationUtils.paginar(productos, page, rowsPerPage);
-        } catch (PaginaFueraDelLimiteException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage()));
-        }
+        PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(productos, Producto::toProductoDTO);
 
-        List<ProductoDTO> productosDTO = productos.stream().map(Producto::toProductoDTO).toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(productosDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
     }
 
     @GetMapping("/destacados")
     public ResponseEntity<?> listarProductosDestacados(@RequestParam int page,
-                                                       @RequestParam int rowsPerPage) {
-        if (rowsPerPage == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("rowsPerPage debe ser mayor a 0"));
+                                                       @RequestParam int rowsPerPage) throws ValidationException, PaginaFueraDelLimiteException {
+         if (rowsPerPage == 0) {
+            throw new ValidationException("rowsPerPage debe ser mayor a 0");
         }
 
-        List<Producto> productos = productoService.buscarProductosDestacados();
+        Page<Producto> productos = listaProductoService.buscarProductosDestacados(page, rowsPerPage);
 
-        try {
-            productos = PaginationUtils.paginar(productos, page, rowsPerPage);
-        } catch (PaginaFueraDelLimiteException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage()));
-        }
+        PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(productos, Producto::toProductoDTO);
 
-        List<ProductoDTO> productosDTO = productos.stream().map(Producto::toProductoDTO).toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(productosDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
     }
 
     @GetMapping("/recientes")
     public ResponseEntity<?> listarProductosVistosRecientes(@RequestParam int page,
-                                                            @RequestParam int rowsPerPage) {
+                                                            @RequestParam int rowsPerPage) throws PaginaFueraDelLimiteException {
         if (rowsPerPage == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("rowsPerPage debe ser mayor a 0"));
         }
@@ -89,17 +79,11 @@ public class ListaProductosController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
 
-        List<Producto> productos = productoService.buscarVistosRecientemente(usuario);
+        Page<Producto> productos = listaProductoService.buscarVistosRecientemente(usuario, page, rowsPerPage);
 
-        try {
-            productos = PaginationUtils.paginar(productos, page, rowsPerPage);
-        } catch (PaginaFueraDelLimiteException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage()));
-        }
+        PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(productos, Producto::toProductoDTO);
 
-        List<ProductoDTO> productosDTO = productos.stream().map(Producto::toProductoDTO).toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(productosDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
     }
 
     @GetMapping("/categoria")
@@ -118,7 +102,7 @@ public class ListaProductosController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
 
-        productoService.setUnsetFav(usuario, productoId);
+        listaProductoService.setUnsetFav(usuario, productoId);
 
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
@@ -131,7 +115,7 @@ public class ListaProductosController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
 
-        productoService.marcarVisto(usuario, productoId);
+        listaProductoService.marcarVisto(usuario, productoId);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
