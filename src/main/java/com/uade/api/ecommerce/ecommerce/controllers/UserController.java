@@ -7,12 +7,10 @@ import com.uade.api.ecommerce.ecommerce.repository.UserRepository;
 import com.uade.api.ecommerce.ecommerce.services.FacturaService;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +25,7 @@ public class UserController
     private FacturaService facturaService;
 
     @GetMapping("/{id}")
-    public ResponseEntity obtenerUsuario(@RequestParam Long id)
+    public ResponseEntity obtenerUsuario(@PathVariable Long id)
     {
         Usuario user = userRepository.findById(id).get();
         return ResponseEntity.ok(user.toUsuarioDTO());
@@ -38,8 +36,9 @@ public class UserController
 
         var response = facturaService.obtenerFacturas(SecurityUtils.getCurrentUser());
 
-
         List<FacturaDTO> formated = response.stream().map(Factura::toDTO).toList();
+
+
         return ResponseEntity.ok(formated);
     }
 }

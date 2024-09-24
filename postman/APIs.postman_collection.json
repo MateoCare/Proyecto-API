@@ -728,7 +728,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -869,6 +869,62 @@
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Factura del usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/factura",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"factura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Factura del usuario Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/factura",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"factura"
 							]
 						}
 					},
