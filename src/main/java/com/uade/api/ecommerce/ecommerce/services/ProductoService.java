@@ -2,6 +2,7 @@ package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.*;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.HistorialProductoRepository;
@@ -22,8 +23,6 @@ public class ProductoService {
 
     @Autowired
     private StockService stockService;
-    @Autowired
-    private StockProductoRepository stockProductoRepository;
 
     @Autowired
     private FavoritoRepository favoritoRepository;
@@ -38,8 +37,14 @@ public class ProductoService {
         return productoRepository.findByStatusTrue();
     }
 
-    public Producto obtenerProducto(Long id) {
-        return productoRepository.findById(id).orElseGet(null);
+    public Producto obtenerProducto(Long id) throws ResourceNotFound {
+        var found = productoRepository.findById(id);
+
+        if(found.isEmpty()) {
+            throw new ResourceNotFound(id);
+        }
+
+        return found.get();
     }
 
     public List<Producto> buscarProductosPorCategoria(List<Long> categorias) {
@@ -51,7 +56,9 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
-    public Producto altaProducto(Producto producto) throws Exception {
+    public Producto altaProducto(Long productoId) throws Exception {
+        var producto = obtenerProducto(productoId);
+
         if (producto.isStatus()) {
             throw new Exception("El producto ya se encuentra dado de alta");
         }
@@ -68,6 +75,17 @@ public class ProductoService {
         return resultStock.getProducto();
     }
 
+    public void eliminarStock(Long productoId, Long stockId) throws Exception {
+        var producto = this.obtenerProducto(productoId);
+
+        if(!producto.isStatus()){
+            throw new Exception("El producto se encuentra dado de baja");
+        }
+
+        stockService.bajaProducto(stockId);
+
+    }
+
     public Producto addStockExistente(StockProducto stock) throws Exception{
         if (!stock.getProducto().isStatus()) {
             throw new Exception("El producto se encuentra dado de baja");
@@ -77,10 +95,11 @@ public class ProductoService {
         return resultStock.getProducto();
     }
 
-    public void deleteStock(ProductoDTO productoDTO)
-    {
-        var stock = stockProductoRepository.findById(productoDTO.getId()).get();
-        stockProductoRepository.delete(stock);
+    public Producto bajaProducto(Long productoId) throws ResourceNotFound {
+        var actualizarProducto = this.obtenerProducto(productoId);
+
+        actualizarProducto.setStatus(false);
+        return productoRepository.save(actualizarProducto);
     }
 
     public void setUnsetFav(Usuario usuario, Long productoId) {
@@ -107,5 +126,15 @@ public class ProductoService {
         historialProductoRepository.save(new HistorialProducto(usuario.getId(), productoId, new Date()));
     }
 
+
+    public Producto actualizarProducto(Producto producto) throws ResourceNotFound {
+        var productoFound = this.obtenerProducto(producto.getId());
+
+        productoFound.setNombre(producto.getNombre());
+        productoFound.setDescripcion(producto.getDescripcion());
+        productoFound.setPrecio(producto.getPrecio());
+        productoFound.setImagen(producto.getImagen());
+        return productoRepository.save(productoFound);
+    }
     // TODO public producto delete
 }

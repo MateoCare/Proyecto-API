@@ -18,11 +18,6 @@ public class StockService {
     @Autowired
     private StockProductoRepository stockProductoRepository;
 
-    @Autowired
-    private ProductoRepository productoRepository;
-
-    public List<StockProducto> findAll(){ return stockProductoRepository.findAll(); }
-
     public void initializeStock(List<Double> talles, Producto producto) {
 
         for(Double talle : talles) {
@@ -34,7 +29,6 @@ public class StockService {
         }
     }
 
-//Del
 
     public StockProducto addStockProductoExistente(StockProducto stockAgregar) {
         //Devuelve Stock del producto ORIGINAL que esta persistido en la BD
@@ -50,14 +44,10 @@ public class StockService {
         return stockProductoRepository.save(stock);
     }
 
-    public Producto bajaProducto(Producto producto) throws Exception
+    public void bajaProducto(Long stockId) throws Exception
     {
-        if(!producto.isStatus())
-        {
-            throw new Exception("El producto ya se encuentra dado de baja");
-        }
-        producto.setStatus(false);
-        return productoRepository.save(producto);
+        var stock = this.obtenerStock(stockId);
+        stockProductoRepository.delete(stock);
     }
 
     public StockProducto restoStock(Long id, int restaCantidad) throws Exception 
