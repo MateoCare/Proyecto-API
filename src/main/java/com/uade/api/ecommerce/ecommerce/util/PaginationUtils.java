@@ -37,6 +37,9 @@ public class PaginationUtils {
         PageDTO<DTO> pageDTO = new PageDTO<>();
 
         int lastPage = page.getTotalPages() - 1;
+        if (lastPage < 0) {
+            lastPage = 0;
+        }
 
         pageDTO.setCurrentPage(page.getNumber());
         pageDTO.setLastPage(lastPage);

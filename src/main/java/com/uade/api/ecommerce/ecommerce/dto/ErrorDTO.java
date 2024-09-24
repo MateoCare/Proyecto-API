@@ -12,6 +12,7 @@ public class ErrorDTO {
     }
 
     public ErrorDTO(String message, Object extraInfo) {
+        this.message = message;
         this.extraInfo = extraInfo;
     }
 }
