@@ -1,20 +1,15 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
-import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
-import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
-import com.uade.api.ecommerce.ecommerce.models.*;
+import com.uade.api.ecommerce.ecommerce.models.Producto;
+import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.HistorialProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
-import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoService {
@@ -30,9 +25,6 @@ public class ProductoService {
     @Autowired
     private HistorialProductoRepository historialProductoRepository;
 
-    @Autowired
-    private Environment env;
-
     public List<Producto> findAll() {
         return productoRepository.findByStatusTrue();
     }
@@ -45,10 +37,6 @@ public class ProductoService {
         }
 
         return found.get();
-    }
-
-    public List<Producto> buscarProductosPorCategoria(List<Long> categorias) {
-        return productoRepository.findByCategoriaFiltro(categorias, categorias.size());
     }
 
     public Producto addProducto(Producto producto) {
@@ -107,31 +95,6 @@ public class ProductoService {
         return productoRepository.save(actualizarProducto);
     }
 
-    public void setUnsetFav(Usuario usuario, Long productoId) {
-        Favorito favorito = new Favorito(usuario.getId(), productoId);
-
-        Optional<Favorito> optFav = favoritoRepository.findById(new ProductoUsuarioId(usuario.getId(), productoId));
-        if (optFav.isPresent()) {
-            favoritoRepository.delete(favorito);
-        } else {
-            favoritoRepository.save(favorito);
-        }
-    }
-
-    public List<Producto> buscarProductosDestacados() {
-        int top = env.getProperty("consulta.destacados.top", Integer.class, 10);
-        return productoRepository.findProductosDestacados(top);
-    }
-
-    public List<Producto> buscarVistosRecientemente(Usuario usuario) {
-        return productoRepository.findProductosVistosRecientemente(usuario.getId());
-    }
-
-    public void marcarVisto(Usuario usuario, long productoId) {
-        historialProductoRepository.save(new HistorialProducto(usuario.getId(), productoId, new Date()));
-    }
-
-
     public Producto actualizarProducto(Producto producto) throws Exception {
         var productoFound = this.obtenerProducto(producto.getId());
         if (!productoFound.isStatus()) {
@@ -143,5 +106,4 @@ public class ProductoService {
         productoFound.setImagen(producto.getImagen());
         return productoRepository.save(productoFound);
     }
-    // TODO public producto delete
 }
