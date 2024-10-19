@@ -8,7 +8,8 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class Producto {
     @OneToMany(mappedBy = "producto")
     private List<StockProducto> stockProductos;
 
-    @ManyToMany private List<Categoria> categoria;
+    @ManyToMany(fetch = FetchType.EAGER) private List<Categoria> categoria;
 
     public ProductoDTO toProductoDTO() {
         return ProductoDTO.builder()
@@ -34,7 +35,7 @@ public class Producto {
                 .descripcion(descripcion)
                 .imagen(imagen)
                 .precio(precio)
-                .categorias(this.categoria != null ? this.categoria.stream().map(Categoria::getNombre).toList() : null)
+                .categorias(this.categoria != null ? this.categoria.stream().map(Categoria::toCategoriaDTO).toList() : null)
                 .stock(this.stockProductos != null ? stockProductos.stream().map(StockProducto::toStockDTO).toList(): null)
                 .build();
     }

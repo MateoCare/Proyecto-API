@@ -6,6 +6,9 @@ import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.HistorialProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,9 @@ public class ProductoService {
     @Autowired
     private HistorialProductoRepository historialProductoRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public List<Producto> findAll() {
         return productoRepository.findByStatusTrue();
     }
@@ -39,14 +45,16 @@ public class ProductoService {
         return found.get();
     }
 
+    @Transactional
     public Producto addProducto(Producto producto) {
         producto.setStatus(true);
-        var productoSaved = productoRepository.save(producto);
+        producto = productoRepository.save(producto);
+        productoRepository.flush();
 
-        var savedStock = stockService.initializeStock(productoSaved);
+        var savedStock = stockService.initializeStock(producto);
         producto.setStockProductos(savedStock);
+        entityManager.refresh(producto);
         return producto;
-
     }
 
     public Producto altaProducto(Long productoId) throws Exception {

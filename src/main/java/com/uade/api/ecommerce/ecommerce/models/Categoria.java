@@ -16,7 +16,7 @@ public class Categoria {
     @Column
     private String nombre;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private GrupoCategoria grupo;
 
     public Categoria(long id) {

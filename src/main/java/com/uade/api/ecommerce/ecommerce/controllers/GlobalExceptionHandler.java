@@ -15,34 +15,44 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> runtimeException(Exception ex, WebRequest request) {
+        logError(ex);
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<?> resourceNotFound(Exception ex, WebRequest request) {
+        logError(ex);
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<?> validationException(Exception ex, WebRequest request) {
+        logError(ex);
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(PaginaFueraDelLimiteException.class)
     public ResponseEntity<?> paginacionException(Exception ex, WebRequest request) {
+        logError(ex);
         PageDTO<?> pageDTO = ((PaginaFueraDelLimiteException) ex).getPageDTO();
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage(), pageDTO), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CamposVaciosException.class)
     public ResponseEntity<?> camposVaciosExceptioon(Exception ex, WebRequest request) {
+        logError(ex);
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     // Handle all other exceptions globally
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {
+        logError(ex);
         String errorMessage = "An unexpected error occurred: " + ex.getMessage();
         return new ResponseEntity<>(new ErrorDTO(errorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private void logError(Exception e) {
+        e.printStackTrace();
     }
 }
