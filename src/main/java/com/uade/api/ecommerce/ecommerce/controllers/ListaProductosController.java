@@ -76,7 +76,7 @@ public class ListaProductosController {
         Usuario usuario = SecurityUtils.getCurrentUser();
 
         if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
         Page<Producto> productos = listaProductoService.buscarVistosRecientemente(usuario, page, rowsPerPage);
@@ -99,12 +99,12 @@ public class ListaProductosController {
         Usuario usuario = SecurityUtils.getCurrentUser();
 
         if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
         listaProductoService.setUnsetFav(usuario, productoId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping("/{productoId}/visto")
@@ -112,10 +112,10 @@ public class ListaProductosController {
         Usuario usuario = SecurityUtils.getCurrentUser();
 
         if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
         listaProductoService.marcarVisto(usuario, productoId);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

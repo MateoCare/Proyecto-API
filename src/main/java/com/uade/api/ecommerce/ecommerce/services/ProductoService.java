@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
+import com.uade.api.ecommerce.ecommerce.models.Categoria;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
@@ -12,7 +13,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductoService {
@@ -39,7 +44,7 @@ public class ProductoService {
         var found = productoRepository.findById(id);
 
         if(found.isEmpty()) {
-            throw new ResourceNotFound(id);
+            throw new ResourceNotFound("Producto no encontrado");
         }
 
         return found.get();
@@ -113,5 +118,28 @@ public class ProductoService {
         productoFound.setPrecio(producto.getPrecio());
         productoFound.setImagen(producto.getImagen());
         return productoRepository.save(productoFound);
+    }
+
+    public void asignarCategorias(Producto producto, List<Categoria> categorias) {
+        var categoriasActuales = producto.getCategoria();
+
+        Set<Categoria> unionCategorias = new HashSet<>();
+        unionCategorias.addAll(categoriasActuales);
+        unionCategorias.addAll(categorias);
+
+        producto.setCategoria(new ArrayList<>(unionCategorias));
+
+        productoRepository.save(producto);
+    }
+
+    public void quitarCategorias(Producto producto, List<Categoria> categorias) {
+        var categoriasActuales = producto.getCategoria();
+
+        Set<Categoria> unionCategorias = new HashSet<>(categoriasActuales);
+        categorias.forEach(unionCategorias::remove);
+
+        producto.setCategoria(new ArrayList<>(unionCategorias));
+
+        productoRepository.save(producto);
     }
 }

@@ -2,15 +2,18 @@ package com.uade.api.ecommerce.ecommerce.models;
 
 import com.uade.api.ecommerce.ecommerce.dto.CategoriaDTO;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include()
     private long id;
 
     @Column
