@@ -1,7 +1,9 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
+import com.uade.api.ecommerce.ecommerce.exceptions.CategoriasColisionanException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.Categoria;
+import com.uade.api.ecommerce.ecommerce.models.GrupoCategoria;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
@@ -13,10 +15,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +42,7 @@ public class ProductoService {
     public Producto obtenerProducto(Long id) throws ResourceNotFound {
         var found = productoRepository.findById(id);
 
-        if(found.isEmpty()) {
+        if (found.isEmpty()) {
             throw new ResourceNotFound("Producto no encontrado");
         }
 
@@ -72,7 +71,7 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
-    public Producto addStock(StockProducto stock) throws Exception{
+    public Producto addStock(StockProducto stock) throws Exception {
         if (!stock.getProducto().isStatus()) {
             throw new Exception("El producto se encuentra dado de baja");
         }
@@ -84,7 +83,7 @@ public class ProductoService {
     public void eliminarStock(Long productoId, Long stockId) throws Exception {
         var producto = this.obtenerProducto(productoId);
 
-        if(!producto.isStatus()){
+        if (!producto.isStatus()) {
             throw new Exception("El producto se encuentra dado de baja");
         }
 
@@ -92,7 +91,7 @@ public class ProductoService {
 
     }
 
-    public Producto addStockExistente(StockProducto stock) throws Exception{
+    public Producto addStockExistente(StockProducto stock) throws Exception {
         if (!stock.getProducto().isStatus()) {
             throw new Exception("El producto se encuentra dado de baja");
         }
@@ -120,8 +119,10 @@ public class ProductoService {
         return productoRepository.save(productoFound);
     }
 
-    public void asignarCategorias(Producto producto, List<Categoria> categorias) {
+    public void asignarCategorias(Producto producto, List<Categoria> categorias) throws CategoriasColisionanException {
         var categoriasActuales = producto.getCategoria();
+
+        validarAsignacionDeCategorias(categoriasActuales, categorias);
 
         Set<Categoria> unionCategorias = new HashSet<>();
         unionCategorias.addAll(categoriasActuales);
@@ -130,6 +131,26 @@ public class ProductoService {
         producto.setCategoria(new ArrayList<>(unionCategorias));
 
         productoRepository.save(producto);
+    }
+
+    private void validarAsignacionDeCategorias(List<Categoria> categoriasActuales, List<Categoria> categorias) throws CategoriasColisionanException {
+        // Se verifica que todas las nuevas categorias pertenezcan a grupos distintos
+        Set<GrupoCategoria> gruposNuevos = categorias.stream().map(Categoria::getGrupo).collect(Collectors.toSet());
+        if (categorias.size() != gruposNuevos.size()) {
+            throw new CategoriasColisionanException("No se pueden asignar mas de una categoria pertenecientes al mismo grupo");
+        }
+
+        // Map que asigna a cada grupo de una categoria actualmente asignada, la categoria correspondiente
+        Map<GrupoCategoria, Categoria> categoriasPorGrupoActuales =
+                categoriasActuales.stream().collect(Collectors.toMap(Categoria::getGrupo, item -> item));
+
+        for (Categoria categoria : categorias) {
+            // Se verifica que no haya una categoria distinta del mismo grupo ya asignada previamente
+            Categoria categoriaActualAsignada = categoriasPorGrupoActuales.get(categoria.getGrupo());
+            if (categoriaActualAsignada != null && categoriaActualAsignada != categoria) {
+                throw new CategoriasColisionanException(categoria);
+            }
+        }
     }
 
     public void quitarCategorias(Producto producto, List<Categoria> categorias) {

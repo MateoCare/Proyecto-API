@@ -9,9 +9,14 @@ import java.util.List;
 
 @Service
 public class CategoriaService {
-    @Autowired private CategoriaRepository categoriaRepository;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     public List<Categoria> findAll() {
         return categoriaRepository.findAll();
+    }
+
+    public List<Categoria> findByIds(List<Long> ids) {
+        return categoriaRepository.findAllById(ids);
     }
 }

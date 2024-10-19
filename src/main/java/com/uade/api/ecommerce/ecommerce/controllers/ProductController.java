@@ -4,8 +4,9 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 import com.uade.api.ecommerce.ecommerce.dto.CategoriaDTO;
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.CategoriasColisionanException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
-import com.uade.api.ecommerce.ecommerce.models.Categoria;
+import com.uade.api.ecommerce.ecommerce.services.CategoriaService;
 import com.uade.api.ecommerce.ecommerce.services.ProductoService;
 import com.uade.api.ecommerce.ecommerce.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/producto")
@@ -27,6 +26,8 @@ public class ProductController {
     @Autowired
     private StockService stockService;
 
+    @Autowired
+    private CategoriaService categoriaService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductoDTO> obtenerProducto(@PathVariable Long id) throws ResourceNotFound {
@@ -103,10 +104,11 @@ public class ProductController {
     }
 
     @PostMapping("/{idProducto}/categoria")
-    public ResponseEntity<ProductoDTO> asignarCategoria(@PathVariable Long idProducto, @RequestBody List<CategoriaDTO> categoriasDTO) throws ResourceNotFound {
+    public ResponseEntity<ProductoDTO> asignarCategoria(@PathVariable Long idProducto,
+                                                        @RequestBody List<CategoriaDTO> categoriasDTO) throws ResourceNotFound, CategoriasColisionanException {
         var producto = productoService.obtenerProducto(idProducto);
 
-        var categorias = categoriasDTO.stream().map(CategoriaDTO::toCategoria).toList();
+        var categorias = categoriaService.findByIds(categoriasDTO.stream().map(CategoriaDTO::getId).toList());
 
         productoService.asignarCategorias(producto, categorias);
 
@@ -117,7 +119,7 @@ public class ProductController {
     public ResponseEntity<ProductoDTO> quitarCategoria(@PathVariable Long idProducto, @RequestBody List<CategoriaDTO> categoriasDTO) throws ResourceNotFound {
         var producto = productoService.obtenerProducto(idProducto);
 
-        var categorias = categoriasDTO.stream().map(CategoriaDTO::toCategoria).toList();
+        var categorias = categoriaService.findByIds(categoriasDTO.stream().map(CategoriaDTO::getId).toList());
 
         productoService.quitarCategorias(producto, categorias);
 
