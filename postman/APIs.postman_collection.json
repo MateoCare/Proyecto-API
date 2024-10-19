@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "255fcb3d-964b-425b-83a9-ce407648957f",
+		"_postman_id": "77ba0637-0a5a-4625-8317-71feefa58869",
 		"name": "APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "36482484"
+		"_exporter_id": "18791900"
 	},
 	"item": [
 		{
@@ -169,7 +169,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/v1/producto?page=1&rowsPerPage=10&categorias=4",
+							"raw": "{{host}}/v1/producto?page=1&rowsPerPage=5",
 							"host": [
 								"{{host}}"
 							],
@@ -184,11 +184,7 @@
 								},
 								{
 									"key": "rowsPerPage",
-									"value": "10"
-								},
-								{
-									"key": "categorias",
-									"value": "4"
+									"value": "5"
 								}
 							]
 						}
@@ -243,7 +239,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/v1/producto/destacados?page=1&rowsPerPage=10",
+							"raw": "{{host}}/v1/producto/destacados?page=1&rowsPerPage=5",
 							"host": [
 								"{{host}}"
 							],
@@ -259,7 +255,7 @@
 								},
 								{
 									"key": "rowsPerPage",
-									"value": "10"
+									"value": "5"
 								}
 							]
 						}
@@ -314,7 +310,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/v1/producto/recientes?page=2&rowsPerPage=10",
+							"raw": "{{host}}/v1/producto/recientes?page=1&rowsPerPage=5",
 							"host": [
 								"{{host}}"
 							],
@@ -326,11 +322,11 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "rowsPerPage",
-									"value": "10"
+									"value": "5"
 								}
 							]
 						}
@@ -377,7 +373,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuarioId\": 1,\r\n    \"listItems\": [\r\n        {\r\n            \"stockProductoId\": 1,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"stockProductoId\": 2,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"stockProductoId\": 3,\r\n            \"cantidad\": 1\r\n        }\r\n    ]\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -443,14 +439,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/v1/producto/3/favorito",
+							"raw": "{{host}}/v1/producto/4/favorito",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
 								"producto",
-								"3",
+								"4",
 								"favorito"
 							]
 						}
@@ -502,14 +498,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/v1/producto/1/visto",
+							"raw": "{{host}}/v1/producto/4/visto",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"v1",
 								"producto",
-								"1",
+								"4",
 								"visto"
 							]
 						}
@@ -544,13 +540,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/producto/1",
+							"raw": "{{host}}/producto/8",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"producto",
-								"1"
+								"8"
 							]
 						}
 					},
@@ -601,7 +597,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nombre\":\"Vans Vans\",\n    \"descripcion\":\"abc\",\n    \"imagen\":\"test.jpg\",\n    \"precio\":200.0,\n    \"stock\": [\n        {\n            \"talle\":40\n        },\n        {\n            \"talle\":40.5\n        }\n    ],\n    \"categoria\":[\"abc\", \"dce\"]\n}",
+							"raw": "{\n    \"nombre\":\"Vans Vans\",\n    \"descripcion\":\"abc\",\n    \"imagen\":\"test.jpg\",\n    \"precio\":200.0,\n    \"stock\": [\n        {\n            \"talle\":40\n        },\n        {\n            \"talle\":40.5\n        }\n    ],\n    \"categorias\":[\n        {\n            \"id\": 1\n        },\n        {\n            \"id\": 4\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -615,6 +611,82 @@
 							],
 							"path": [
 								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar categoría",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 8\n    },\n    {\n        \"id\": 10\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/producto/8/categoria",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto",
+								"8",
+								"categoria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quitar categoria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 8\n    },\n    {\n        \"id\": 4\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/producto/8/categoria",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"producto",
+								"8",
+								"categoria"
 							]
 						}
 					},
@@ -807,7 +879,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\": \"pmorales\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\"\r\n}",
+							"raw": "{\r\n    \"usuario\": \"\",\r\n    \"password\": \"password\",\r\n    \"email\": \"pmorales@gmail.com\",\r\n    \"fecha_nacimiento\": \"20000315\",\r\n    \"nombre\": \"Pepito\",\r\n    \"apellido\": \"Morales\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -876,34 +948,6 @@
 				},
 				{
 					"name": "Obtener Factura del usuario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/user/factura",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"factura"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener Factura del usuario Copy",
 					"request": {
 						"auth": {
 							"type": "bearer",
