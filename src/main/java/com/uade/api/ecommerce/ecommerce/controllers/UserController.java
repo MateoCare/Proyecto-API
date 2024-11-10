@@ -26,11 +26,10 @@ public class UserController
     @Autowired
     private FacturaService facturaService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity obtenerUsuario(@PathVariable Long id)
+    @GetMapping()
+    public ResponseEntity obtenerUsuario()
     {
-        UsuarioDTO userDTO = userService.obtenerUsuario(id);
-
+        UsuarioDTO userDTO = userService.obtenerUsuario(SecurityUtils.getCurrentUser().getId());
         return ResponseEntity.ok(userDTO);
     }
 
