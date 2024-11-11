@@ -22,13 +22,13 @@ public class StockService {
     public List<StockProducto> initializeStock(Producto producto) {
 
         List<StockProducto> stockProductos = new ArrayList<>();
-        for(StockProducto stockProducto : producto.getStockProductos()) {
-            stockProducto.setProducto(producto);
-            stockProducto.setCantidad(0);
-//            stockProducto.setTalle(talle);
-
-            stockProductos.add(stockProducto);
-        }
+//        for(StockProducto stockProducto : producto.getStockProductos()) {
+//            stockProducto.setProducto(producto);
+//            //stockProducto.setCantidad(0);
+////            stockProducto.setTalle(talle);
+//
+//            stockProductos.add(stockProducto);
+//        }
         var listaSaved = stockProductoRepository.saveAll(stockProductos);
         return listaSaved;
     }
@@ -81,6 +81,10 @@ public class StockService {
         }
 
         return result.get();
+    }
+
+    public StockProducto modificarStock(StockProducto stockProducto){
+        return stockProductoRepository.save(stockProducto);
     }
     
 

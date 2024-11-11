@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/producto")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true", methods = {RequestMethod.PUT,RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE})
 public class ProductController {
 
     @Autowired
@@ -66,6 +67,18 @@ public class ProductController {
         stock.setProducto(producto);
 
         var response = productoService.addStockExistente(stock);
+
+        return ResponseEntity.ok(response.toProductoDTO());
+    }
+    @PutMapping("/{productoId}/stock/{stockId}")
+    public ResponseEntity<ProductoDTO> modificarStockProducto(@RequestBody StockDTO stockDTO, @PathVariable Long productoId, @PathVariable Long stockId) throws Exception {
+        var stock = stockDTO.toStock();
+        stock.setId(stockId);
+        var producto = productoService.obtenerProducto(productoId);
+
+        stock.setProducto(producto);
+
+        var response = productoService.modificarStock(stock);
 
         return ResponseEntity.ok(response.toProductoDTO());
     }

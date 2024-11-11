@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,14 +31,11 @@ public class SecurityConfig {
     private CustomUserDetailsService userDetailsService;
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
-
     @Autowired
     private AdminRouteFilter adminRouteFilter;
 
     @Bean
     public SecurityFilterChain firstFilter(HttpSecurity httpSecurity) throws Exception {
-
-        System.out.println("New request");
 
         httpSecurity
                 .authorizeHttpRequests(auth ->
@@ -91,7 +89,10 @@ public class SecurityConfig {
 
         //configuration.setAllowedOrigins(List.of("http://localhost:5173/login"));
         //configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.applyPermitDefaultValues();
+        //configuration.applyPermitDefaultValues();
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173")); // Adjust based on your frontend URL
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

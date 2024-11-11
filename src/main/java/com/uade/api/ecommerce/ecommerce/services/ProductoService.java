@@ -55,8 +55,8 @@ public class ProductoService {
         producto = productoRepository.save(producto);
         productoRepository.flush();
 
-        var savedStock = stockService.initializeStock(producto);
-        producto.setStockProductos(savedStock);
+//        var savedStock = stockService.initializeStock(producto);
+//        producto.setStockProductos(savedStock);
         entityManager.refresh(producto);
         return producto;
     }
@@ -98,6 +98,10 @@ public class ProductoService {
 
         var resultStock = stockService.addStockProductoExistente(stock);
         return resultStock.getProducto();
+    }
+
+    public Producto modificarStock(StockProducto stock)throws Exception{
+        return stockService.modificarStock(stock).getProducto();
     }
 
     public Producto bajaProducto(Long productoId) throws ResourceNotFound {
