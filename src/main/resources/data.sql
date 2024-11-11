@@ -8,13 +8,13 @@ INSERT INTO USUARIO(USUARIO, PASSWORD, EMAIL, FECHA_NACIMIENTO, NOMBRE, APELLIDO
 
 
 INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, IMAGEN, PRECIO, STATUS) VALUES
-    ('Adidas JumpCrazy', 'Modo rana all day', 'jumpcrazy.jpg', 99.99, 1),
-    ( 'Vans Classics', 'Un clasicon', 'vansclassic.jpg', 99.99, 1),
-    ( 'DC Big Skater', 'Para ese fan que le encanta quemar zapas caras con la lija del board', 'dcbigskater.jpg', 299.99, 1),
-    ( 'Nike Air Max', 'Comodidad y estilo para todos', 'airmax.jpg', 149.99, 1),
-    ( 'Converse All Star', 'El clásico de siempre, nunca pasa de moda', 'allstar.jpg', 79.99, 1),
-    ( 'Reebok Classic', 'El modelo retro que sigue vigente', 'reebokclassic.jpg', 89.99, 1),
-    ( 'Puma Suede', 'Elegancia y rendimiento en uno', 'pumasuede.jpg', 129.99, 1);
+    ('Adidas JumpCrazy', 'Modo rana all day', 'https://m.media-amazon.com/images/I/71E75yRwCDL._AC_UY575_.jpg', 99.99, 1),
+    ( 'Vans Classics', 'Un clasicon', 'https://http2.mlstatic.com/D_775466-MLA74462197455_022024-C.jpg', 99.99, 1),
+    ( 'DC Big Skater', 'Para ese fan que le encanta quemar zapas caras con la lija del board', 'https://http2.mlstatic.com/D_Q_NP_2X_978135-MLA77089591492_062024-E.webp', 299.99, 1),
+    ( 'Nike Air Max', 'Comodidad y estilo para todos', 'https://http2.mlstatic.com/D_Q_NP_2X_632832-MLA73309925273_122023-E.webp', 149.99, 1),
+    ( 'Converse All Star', 'El clásico de siempre, nunca pasa de moda', 'https://http2.mlstatic.com/D_Q_NP_2X_948907-MLA71811052528_092023-E.webp', 79.99, 1),
+    ( 'Reebok Classic', 'El modelo retro que sigue vigente', 'https://http2.mlstatic.com/D_Q_NP_2X_791711-MLA79915847808_102024-E.webp', 89.99, 1),
+    ( 'Puma Suede', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1);
 
 INSERT INTO STOCK_PRODUCTO(PRODUCTO_ID, TALLE, CANTIDAD) VALUES
     (1, 40, 3), ---ADIDAS JUMPCRAZY
