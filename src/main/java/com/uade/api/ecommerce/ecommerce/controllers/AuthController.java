@@ -3,10 +3,12 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 import com.uade.api.ecommerce.ecommerce.dto.LoginDTO;
 import com.uade.api.ecommerce.ecommerce.dto.UsuarioDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.CamposVaciosException;
+import com.uade.api.ecommerce.ecommerce.exceptions.MailAlreadyUsedException;
 import com.uade.api.ecommerce.ecommerce.models.Rol;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.security.JwtTokenUtil;
 import com.uade.api.ecommerce.ecommerce.services.AuthService;
+import com.uade.api.ecommerce.ecommerce.services.UserService;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDTO loginDto){
@@ -58,12 +62,17 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<UsuarioDTO> guardarPersona(@Valid @RequestBody UsuarioDTO user) throws CamposVaciosException {
+    public ResponseEntity<UsuarioDTO> guardarPersona(@Valid @RequestBody UsuarioDTO user) throws CamposVaciosException, MailAlreadyUsedException {
         // Verifica si algún campo está vacío o contiene solo espacios en blanco
         if (user.getNombre().trim().isEmpty() || user.getApellido().trim().isEmpty() || user.getEmail().trim().isEmpty() ||
                 user.getPassword().trim().isEmpty() || user.getUsuario().trim().isEmpty()) {
             throw new CamposVaciosException("No se pueden dejar espacios vacíos");
         }
+
+        if (userService.buscarUsuarioPorMail(user.getEmail()).isPresent()) {
+            throw new MailAlreadyUsedException();
+        }
+
         Usuario usuario = user.toUsuario();
         Usuario nuevaPersona = authService.registrarPersona(usuario);
 

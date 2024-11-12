@@ -57,6 +57,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MailAlreadyUsedException.class)
+    public ResponseEntity<?> mailAlreadyUsedException(Exception ex, WebRequest request) {
+        logError(ex);
+        return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     // Handle all other exceptions globally
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService
 {
@@ -17,6 +19,10 @@ public class UserService
     {
         Usuario user = userRepository.findById(id).get();
         return user.toUsuarioDTO();
+    }
+
+    public Optional<Usuario> buscarUsuarioPorMail(String mail) {
+        return userRepository.findByEmail(mail);
     }
 
 }
