@@ -15,22 +15,12 @@ INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, IMAGEN, PRECIO, STATUS) VALUES
     ( 'Converse All Star', 'El clásico de siempre, nunca pasa de moda', 'https://http2.mlstatic.com/D_Q_NP_2X_948907-MLA71811052528_092023-E.webp', 79.99, 1),
     ( 'Reebok Classic', 'El modelo retro que sigue vigente', 'https://http2.mlstatic.com/D_Q_NP_2X_791711-MLA79915847808_102024-E.webp', 89.99, 1),
     ( 'Puma Suede', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( 'ABC', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '123', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '234', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '345', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '456', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '567', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '678', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '789', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '111', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '222', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '333', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '444', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '555', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '666', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '777', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
-    ( '888', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( 'Adidas Stan Smith','Clásico atemporal, conocido por su diseño minimalista y su comodidad. Perfectas para un estilo casual y versátiles para cualquier ocasión.','https://assets.adidas.com/images/w_600,f_auto,q_auto/f6bfb2c064a64c498e57af1700593332_9366/Stan_Smith_Lux_Shoes_White_HQ6785_HM1.jpg',99.99,1),
+    ( 'Adidas Ultraboost', 'Excelente amortiguación y soporte, ideales para correr y entrenar.','https://cdn.sanity.io/images/c1chvb1i/production/cd0f052dc8b293b2626d748b4bf72c34f36c7948-1100x735.jpg/ULTRABOOST_WMNS_WHT-BB6308-1.jpg',109.99, 1),
+    ( 'Adidas Samba', 'Icono de la marca, con su distintivo diseño de tres líneas negras y suela de cuero.','https://th.bing.com/th/id/OIP.4ihPcQTb2TRzG-PI2cwQ5QAAAA?rs=1&pid=ImgDetMain',120.00, 1),
+    ( 'Nike Air Force 1', 'Clásico icónico conocido por su diseño retro y su comodidad.', 'https://www.favsole.com/images/2018/08/Nike-Air-Force-1-Low-Utility-White-Black-Tour-Yellow-AJ7747-100-On-Sale-3.jpg', 100.00, 1),
+    ( 'Nike Air Max 90', 'Un clásico deportivo con su distintivo "Air" en la suela y su diseño retro.', 'https://th.bing.com/th/id/OIP.znW2foQq4z6MRjiFG4UG6wHaFS?rs=1&pid=ImgDetMain', 109.99, 1),
+    ( 'Nike Dunk', 'Con un diseño moderno y versátil, estas zapatillas son perfectas para el uso diario y el deporte.','https://sneakerbardetroit.com/wp-content/uploads/2023/07/Nike-Dunk-Low-Anthracite-Pure-Platinum-Cool-Grey-FV0384-001-4.jpg', 99.99, 1),
     ( '999', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
     ( '112', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
     ( '113', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
@@ -64,7 +54,16 @@ INSERT INTO STOCK_PRODUCTO(PRODUCTO_ID, TALLE, CANTIDAD) VALUES
     (6, 39, 15), -- REEBOK CLASSIC
     (6, 44, 7), -- REEBOK CLASSIC
     (7, 42, 9), -- PUMA SUEDE
-    (7, 44, 4); -- PUMA SUEDE
+    (7, 44, 4), -- PUMA SUEDE
+    (8,41,5), -- Stan smith
+    (8,43,2), -- Stan smith
+    (9,39,6), -- UltraBoost
+    (9,42,3), -- UltraBoost
+    (10,44,10), -- Samba
+    (11,40,10), -- Air Force 1
+    (12,38,9), -- Air Max 90
+    (13, 41,4), -- Nike Dunk
+    (13,42,5); -- Nike Dunk
 
 
 INSERT INTO FACTURA(FECHA_COMPRA, USUARIO_ID) VALUES
@@ -109,6 +108,7 @@ INSERT INTO CATEGORIA(GRUPO_ID, ID, NOMBRE) VALUES (4, 11, 'Elegante');
 INSERT INTO CATEGORIA(GRUPO_ID, ID, NOMBRE) VALUES (1, 12, 'Converse');
 INSERT INTO CATEGORIA(GRUPO_ID, ID, NOMBRE) VALUES (1, 13, 'Reebok');
 INSERT INTO CATEGORIA(GRUPO_ID, ID, NOMBRE) VALUES (1, 14, 'Puma');
+INSERT INTO CATEGORIA(GRUPO_ID, ID, NOMBRE) VALUES (1, 15, 'Nike');
 
 
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (1, 1);
@@ -125,3 +125,15 @@ INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (6, 13); -- REE
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (6, 9); -- REEBOK CLASSIC -> Skateboarding (Deporte)
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (7, 14); -- PUMA SUEDE -> DC (Marca)
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (7, 11); -- PUMA SUEDE -> Elegante (Estilo)
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (8, 10); -- Stan -> (Estilo)
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (8, 1); -- Stan -> (Marca)
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (8, 4); -- Stan -> (Segmento)
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (9, 5);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (9, 1);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (9, 8);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (10, 1);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (10, 4);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (10, 10);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (11, 15);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (11, 4);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (11, 10);
