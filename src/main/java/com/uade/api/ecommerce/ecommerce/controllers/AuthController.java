@@ -3,9 +3,11 @@ package com.uade.api.ecommerce.ecommerce.controllers;
 import com.uade.api.ecommerce.ecommerce.dto.LoginDTO;
 import com.uade.api.ecommerce.ecommerce.dto.UsuarioDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.CamposVaciosException;
+import com.uade.api.ecommerce.ecommerce.models.Rol;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.security.JwtTokenUtil;
 import com.uade.api.ecommerce.ecommerce.services.AuthService;
+import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +44,16 @@ public class AuthController {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
 
+
+        Usuario usu = SecurityUtils.getCurrentUser();
+
         String jwtToken = jwtTokenUtil.generateToken(loginDto.getEmail());
+        if(usu.getRol() == Rol.ADMIN){
+            return ResponseEntity.ok(Map.of("jwtToken", jwtToken, "admin", true));
+        }
 
         return ResponseEntity.ok(Map.of("jwtToken", jwtToken));
+
 
     }
 

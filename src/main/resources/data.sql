@@ -14,7 +14,42 @@ INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, IMAGEN, PRECIO, STATUS) VALUES
     ( 'Nike Air Max', 'Comodidad y estilo para todos', 'https://http2.mlstatic.com/D_Q_NP_2X_632832-MLA73309925273_122023-E.webp', 149.99, 1),
     ( 'Converse All Star', 'El clásico de siempre, nunca pasa de moda', 'https://http2.mlstatic.com/D_Q_NP_2X_948907-MLA71811052528_092023-E.webp', 79.99, 1),
     ( 'Reebok Classic', 'El modelo retro que sigue vigente', 'https://http2.mlstatic.com/D_Q_NP_2X_791711-MLA79915847808_102024-E.webp', 89.99, 1),
-    ( 'Puma Suede', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1);
+    ( 'Puma Suede', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( 'ABC', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '123', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '234', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '345', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '456', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '567', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '678', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '789', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '111', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '222', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '333', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '444', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '555', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '666', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '777', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '888', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '999', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '112', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '113', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '114', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '115', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '116', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '117', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '118', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '119', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '221', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '223', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '224', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '225', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '226', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '227', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '228', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '229', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '331', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
+    ( '332', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1);
 
 INSERT INTO STOCK_PRODUCTO(PRODUCTO_ID, TALLE, CANTIDAD) VALUES
     (1, 40, 3), ---ADIDAS JUMPCRAZY
@@ -30,6 +65,30 @@ INSERT INTO STOCK_PRODUCTO(PRODUCTO_ID, TALLE, CANTIDAD) VALUES
     (6, 44, 7), -- REEBOK CLASSIC
     (7, 42, 9), -- PUMA SUEDE
     (7, 44, 4); -- PUMA SUEDE
+
+
+INSERT INTO FACTURA(FECHA_COMPRA, USUARIO_ID) VALUES
+    ('2024-11-12', 3),
+    ('2024-11-13', 3),
+    ('2024-11-14', 3),
+    ('2024-11-15', 3),
+    ('2024-11-16', 3),
+    ('2024-11-17', 3),
+    ('2024-11-18', 3),
+    ('2024-11-19', 3),
+    ('2024-11-20', 3),
+    ('2024-11-21', 3),
+    ('2024-11-22', 3),
+    ('2024-11-23', 3),
+    ('2024-11-24', 3),
+    ('2024-11-25', 3),
+    ('2024-11-26', 3),
+    ('2024-11-27', 3),
+    ('2024-11-28', 3),
+    ('2024-11-30', 3),
+    ('2024-12-31', 3),
+    ('2024-12-20', 3);
+
 
 INSERT INTO GRUPO_CATEGORIA(ID, NOMBRE) VALUES (1, 'Marca');
 INSERT INTO GRUPO_CATEGORIA(ID, NOMBRE) VALUES (2, 'Segmento');
