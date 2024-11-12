@@ -7,9 +7,11 @@ import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.PaginaFueraDelLimiteException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ValidationException;
 import com.uade.api.ecommerce.ecommerce.models.Categoria;
+import com.uade.api.ecommerce.ecommerce.models.Favorito;
 import com.uade.api.ecommerce.ecommerce.models.Producto;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.services.CategoriaService;
+import com.uade.api.ecommerce.ecommerce.services.FavoritoService;
 import com.uade.api.ecommerce.ecommerce.services.ListaProductosService;
 import com.uade.api.ecommerce.ecommerce.util.PaginationUtils;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
@@ -31,6 +33,9 @@ public class ListaProductosController {
     @Autowired
     private CategoriaService categoriaService;
 
+    @Autowired
+    private FavoritoService favoritoService;
+
     @GetMapping
     public ResponseEntity<?> listarProductosPorCategoria(@RequestParam int page,
                                                                          @RequestParam int rowsPerPage,
@@ -49,6 +54,9 @@ public class ListaProductosController {
 
         PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(productos, Producto::toProductoDTO);
 
+        Usuario usuario = SecurityUtils.getCurrentUser();
+        setearFavoritos(pageDTO.getPageItems(), usuario);
+
         return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
     }
 
@@ -62,6 +70,9 @@ public class ListaProductosController {
         Page<Producto> productos = listaProductoService.buscarProductosDestacados(page, rowsPerPage);
 
         PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(productos, Producto::toProductoDTO);
+
+        Usuario usuario = SecurityUtils.getCurrentUser();
+        setearFavoritos(pageDTO.getPageItems(), usuario);
 
         return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
     }
@@ -82,6 +93,8 @@ public class ListaProductosController {
         Page<Producto> productos = listaProductoService.buscarVistosRecientemente(usuario, page, rowsPerPage);
 
         PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(productos, Producto::toProductoDTO);
+
+        setearFavoritos(pageDTO.getPageItems(), usuario);
 
         return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
     }
@@ -117,5 +130,13 @@ public class ListaProductosController {
 
         listaProductoService.marcarVisto(usuario, productoId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    private void setearFavoritos(List<ProductoDTO> productosDTO, Usuario usuario) {
+        List<Favorito> favoritos = favoritoService.buscarFavoritos(usuario);
+
+        for (var productoDTO : productosDTO) {
+            productoDTO.setFavorito(favoritos.stream().anyMatch(favorito -> favorito.getProductoId() == productoDTO.getId()));
+        }
     }
 }

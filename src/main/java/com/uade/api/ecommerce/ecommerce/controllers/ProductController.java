@@ -6,9 +6,12 @@ import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.dto.StockDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.CategoriasColisionanException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
+import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.services.CategoriaService;
+import com.uade.api.ecommerce.ecommerce.services.FavoritoService;
 import com.uade.api.ecommerce.ecommerce.services.ProductoService;
 import com.uade.api.ecommerce.ecommerce.services.StockService;
+import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +33,19 @@ public class ProductController {
     @Autowired
     private CategoriaService categoriaService;
 
+    @Autowired
+    private FavoritoService favoritoService;
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductoDTO> obtenerProducto(@PathVariable Long id) throws ResourceNotFound {
 
-        var producto = productoService.obtenerProducto(id).toProductoDTO();
-        return ResponseEntity.ok(producto);
+        var productoDTO = productoService.obtenerProducto(id).toProductoDTO();
+
+        Usuario usuario = SecurityUtils.getCurrentUser();
+
+        productoDTO.setFavorito(favoritoService.esFavorito(productoDTO.getId(), usuario.getId()));
+
+        return ResponseEntity.ok(productoDTO);
     }
 
     @PostMapping()

@@ -2,10 +2,7 @@ package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.exceptions.CategoriasColisionanException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
-import com.uade.api.ecommerce.ecommerce.models.Categoria;
-import com.uade.api.ecommerce.ecommerce.models.GrupoCategoria;
-import com.uade.api.ecommerce.ecommerce.models.Producto;
-import com.uade.api.ecommerce.ecommerce.models.StockProducto;
+import com.uade.api.ecommerce.ecommerce.models.*;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.HistorialProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.ProductoRepository;

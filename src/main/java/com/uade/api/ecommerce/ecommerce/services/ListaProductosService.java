@@ -60,4 +60,5 @@ public class ListaProductosService {
     public Page<Producto> buscarProductosPorCategoria(List<Long> categorias, int page, int rowsPerPage) {
         return listaProductosRepository.findByCategoriaFiltro(categorias, categorias.size(), PageRequest.of(page, rowsPerPage));
     }
+
 }

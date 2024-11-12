@@ -17,6 +17,7 @@ public class ProductoDTO {
     private Double precio;
     private List<CategoriaDTO> categorias;
     private List<StockDTO> stock;
+    private boolean favorito = false;
 
     public Producto toProducto() {
 
