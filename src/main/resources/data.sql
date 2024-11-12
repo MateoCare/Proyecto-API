@@ -21,6 +21,9 @@ INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, IMAGEN, PRECIO, STATUS) VALUES
     ( 'Nike Air Force 1', 'Clásico icónico conocido por su diseño retro y su comodidad.', 'https://www.favsole.com/images/2018/08/Nike-Air-Force-1-Low-Utility-White-Black-Tour-Yellow-AJ7747-100-On-Sale-3.jpg', 100.00, 1),
     ( 'Nike Air Max 90', 'Un clásico deportivo con su distintivo "Air" en la suela y su diseño retro.', 'https://th.bing.com/th/id/OIP.znW2foQq4z6MRjiFG4UG6wHaFS?rs=1&pid=ImgDetMain', 109.99, 1),
     ( 'Nike Dunk', 'Con un diseño moderno y versátil, estas zapatillas son perfectas para el uso diario y el deporte.','https://sneakerbardetroit.com/wp-content/uploads/2023/07/Nike-Dunk-Low-Anthracite-Pure-Platinum-Cool-Grey-FV0384-001-4.jpg', 99.99, 1),
+    ( 'Puma Skyrocket Lite', 'Diseñadas para el rendimiento, estas zapatillas ofrecen gran durabilidad y tracción.','https://celadasa.vtexassets.com/arquivos/ids/294737-800-auto?v=638519731871870000&width=800&height=auto&aspect=true', 79.99, 1),
+    ( 'Puma Scend Pro', 'Perfectas para correr largas distancias, estas zapatillas cuentan con una suela de goma Protread y un exterior de malla transpirable', 'https://th.bing.com/th/id/OIP.fuVOZYVbAj-4CySQqnK9nAHaKs?rs=1&pid=ImgDetMain', 75.00, 1),
+    ( 'Puma Deviate Nitro', 'Con un diseño avanzado y tecnología de amortiguación superior', 'https://th.bing.com/th/id/OIP._zCZ7PDrAsypX8HO5T_gOQHaHa?rs=1&pid=ImgDetMain', 94.99, 1),
     ( '999', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
     ( '112', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
     ( '113', 'Elegancia y rendimiento en uno', 'https://http2.mlstatic.com/D_NQ_NP_2X_602116-MLA70284525307_072023-F.webp', 129.99, 1),
@@ -63,8 +66,10 @@ INSERT INTO STOCK_PRODUCTO(PRODUCTO_ID, TALLE, CANTIDAD) VALUES
     (11,40,10), -- Air Force 1
     (12,38,9), -- Air Max 90
     (13, 41,4), -- Nike Dunk
-    (13,42,5); -- Nike Dunk
-
+    (13,42,5), -- Nike Dunk
+    (14,40,5),
+    (15,41,3),
+    (16, 39,6);
 
 INSERT INTO FACTURA(FECHA_COMPRA, USUARIO_ID) VALUES
     ('2024-11-12', 3),
@@ -117,7 +122,7 @@ INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (2, 2);
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (2, 4);
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (3, 3);
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (3, 5);
-INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (4, 1); -- NIKE AIR MAX -> Nike (Marca)
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (4, 15); -- NIKE AIR MAX -> Nike (Marca)
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (4, 8); -- NIKE AIR MAX -> Running (Deporte)
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (5, 12); -- CONVERSE ALL STAR -> Converse (Marca)
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (5, 10); -- CONVERSE ALL STAR -> Casual (Estilo)
@@ -137,3 +142,13 @@ INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (10, 10);
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (11, 15);
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (11, 4);
 INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (11, 10);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (12, 15);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (12, 10);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (13, 15);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (13, 10);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (14, 14);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (14, 8);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (15, 14);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (15, 8);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (16, 14);
+INSERT INTO PRODUCTO_CATEGORIA(PRODUCTO_ID, CATEGORIA_ID) VALUES (16, 8);
