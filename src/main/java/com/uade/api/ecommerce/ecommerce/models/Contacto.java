@@ -1,5 +1,6 @@
 package com.uade.api.ecommerce.ecommerce.models;
 
+import com.uade.api.ecommerce.ecommerce.dto.ContactoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,14 @@ public class Contacto
     @Column(nullable = false)
     private String descripcion;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "contacto_id")
+    @OneToMany(mappedBy = "contacto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "contacto_id")
     private List<ImagenContacto> imagenes;
+
+    private ContactoDTO toDTO()
+    {
+        return ContactoDTO.builder()
+                .nombreApellido(this.nombreApellido).descripcion(this.descripcion).problematica(this.problematica)
+                .build();
+    }
 }

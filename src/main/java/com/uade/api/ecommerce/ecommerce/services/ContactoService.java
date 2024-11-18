@@ -33,7 +33,7 @@ public class ContactoService {
             // Genera un nombre de archivo único
             String nombreArchivo = "imagen" + contacto.getId() + "_" + i + ".jpg";
 
-
+            // Obtengo la ruta base del sistema para luego guardar la imagen en la ruta del proyecto mismo
             String rutaBase = System.getProperty("user.dir");
             Path rutaDestino = Paths.get(rutaBase + "/src/main/resources/img/" + nombreArchivo);
 

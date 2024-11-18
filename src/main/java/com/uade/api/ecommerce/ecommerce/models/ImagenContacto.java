@@ -19,7 +19,7 @@ public class ImagenContacto
     @Column(nullable = false)
     private String rutaImagen;
 
-    @ManyToOne
-    @JoinColumn(name = "contacto_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contacto_id", nullable = false)
     private Contacto contacto;
 }
