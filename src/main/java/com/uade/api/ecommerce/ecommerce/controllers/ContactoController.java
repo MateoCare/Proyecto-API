@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/contacto")
 public class ContactoController {
@@ -20,7 +22,7 @@ public class ContactoController {
     private ContactoService contactoService;
 
     @PostMapping
-    public ResponseEntity<String> guardarContacto(@Valid @RequestBody ContactoDTO contactoDTO) {
+    public ResponseEntity<String> guardarContacto(@Valid @RequestBody ContactoDTO contactoDTO) throws IOException {
         Contacto contacto = contactoDTO.toContacto();
         contactoService.guardarContacto(contacto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Problema registrado correctamente.");

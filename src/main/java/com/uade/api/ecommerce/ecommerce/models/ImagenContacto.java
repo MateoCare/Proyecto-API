@@ -1,16 +1,14 @@
 package com.uade.api.ecommerce.ecommerce.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class ImagenContacto
 {
     @Id
@@ -19,7 +17,7 @@ public class ImagenContacto
 
     @Lob
     @Column(nullable = false)
-    private byte[] imagen;
+    private String rutaImagen;
 
     @ManyToOne
     @JoinColumn(name = "contacto_id")
