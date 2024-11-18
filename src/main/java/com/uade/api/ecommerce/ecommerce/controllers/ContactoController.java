@@ -6,25 +6,30 @@ import com.uade.api.ecommerce.ecommerce.services.ContactoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/contacto")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true", methods = {RequestMethod.POST})
 public class ContactoController {
 
     @Autowired
     private ContactoService contactoService;
 
-    @PostMapping
-    public ResponseEntity<String> guardarContacto(@Valid @RequestBody ContactoDTO contactoDTO) throws IOException {
-        Contacto contacto = contactoDTO.toContacto();
-        contactoService.guardarContacto(contacto);
+    @PostMapping(value = "/reporte", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> guardarContacto(@Valid @RequestPart("contactoDTO") ContactoDTO contactoDTO,
+                                                  @RequestPart("imagenes") List<MultipartFile> imagenes) throws IOException, URISyntaxException {
+        if (imagenes == null || imagenes.isEmpty()) {
+            return ResponseEntity.badRequest().body("Debe cargar al menos una imagen.");
+        }
+        Contacto contacto = contactoService.guardarContacto(contactoDTO, imagenes);
         return ResponseEntity.status(HttpStatus.CREATED).body("Problema registrado correctamente.");
     }
 }

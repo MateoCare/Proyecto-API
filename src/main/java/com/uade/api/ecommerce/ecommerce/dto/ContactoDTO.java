@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,17 +24,15 @@ public class ContactoDTO
     private String problematica;
     @NotBlank(message = "La descripción es obligatoria.")
     private String descripcion;
-    @NotEmpty(message = "Debe cargar al menos una imagen.")
-    private List<String> rutasImagenes;
+    //@NotEmpty(message = "Debe cargar al menos una imagen.")
+    //private List<String> rutasImagenes;
 
     public Contacto toContacto() {
         return Contacto.builder()
                 .nombreApellido(nombreApellido)
                 .problematica(problematica)
                 .descripcion(descripcion)
-                .imagenes(rutasImagenes.stream()
-                        .map(ruta -> ImagenContacto.builder().rutaImagen(ruta).build())
-                        .toList())
+                .imagenes(new ArrayList<>()) // Inicializa la lista de imágenes como vacía
                 .build();
     }
 }
