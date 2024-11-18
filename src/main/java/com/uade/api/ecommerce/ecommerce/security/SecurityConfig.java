@@ -42,6 +42,7 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/h2-console/**", "/auth/login", "/auth/registro")
                                 .permitAll()
+                                .requestMatchers("/contacto").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .csrf(crsf -> crsf.disable())
