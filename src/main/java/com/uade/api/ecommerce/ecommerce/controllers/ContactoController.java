@@ -26,7 +26,11 @@ public class ContactoController {
     @PostMapping(value = "/reporte", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> guardarContacto(@Valid @RequestPart("contactoDTO") ContactoDTO contactoDTO,
                                                   @RequestPart("imagenes") List<MultipartFile> imagenes) throws IOException, URISyntaxException {
-        if (imagenes == null || imagenes.isEmpty()) {
+        //Testeo
+        //System.out.println("--------------------\nValor del parámetro imágenes: " + imagenes + "\n--------------------");
+        //System.out.println("--------------------\nTamaño del parámetro imágenes: " + imagenes.size() + "\n--------------------");
+        // imagenes.isEmpty() no me sirve ya que imagenes.size() siempre va a ser 1 por la instancia de MultipartFile que Spring agrega a imagenes
+        if (imagenes.stream().allMatch(MultipartFile::isEmpty)) {
             return ResponseEntity.badRequest().body("Debe cargar al menos una imagen.");
         }
         Contacto contacto = contactoService.guardarContacto(contactoDTO, imagenes);
