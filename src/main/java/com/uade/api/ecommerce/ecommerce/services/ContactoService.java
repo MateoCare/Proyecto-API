@@ -42,7 +42,7 @@ public class ContactoService {
 
             // Crea una nueva ImagenContacto con la ruta de la imagen
             ImagenContacto imagenContacto = ImagenContacto.builder()
-                    .rutaImagen("/img/" + nombreArchivo)
+                    .rutaImagen("/src/main/resources/img/" + nombreArchivo)
                     .contacto(contacto)
                     .build();
 
