@@ -42,10 +42,10 @@ public class SecurityConfig {
                         auth
                                 .requestMatchers("/h2-console/**", "/auth/login", "/auth/registro")
                                 .permitAll()
-                                .requestMatchers("/contacto").authenticated()
+                                .requestMatchers("/contact-forms").authenticated()
                                 .anyRequest().authenticated()
                 )
-                .csrf(crsf -> crsf.disable())
+                .csrf(csrf -> csrf.disable())
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .headers(head -> head.frameOptions(frame -> frame.disable()));
 
@@ -104,4 +104,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
 }
