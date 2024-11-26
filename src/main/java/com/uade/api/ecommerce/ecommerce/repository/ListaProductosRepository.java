@@ -20,4 +20,7 @@ public interface ListaProductosRepository extends PagingAndSortingRepository<Pro
 
     @Query("SELECT p FROM Producto p INNER JOIN HistorialProducto hp ON p.id = hp.productoId WHERE hp.usuarioId = :usuarioId order by hp.date desc")
     Page<Producto> findProductosVistosRecientemente(@Param("usuarioId") long usuarioId, Pageable pageable);
+
+    @Query("SELECT p FROM Producto p INNER JOIN Favorito f ON p.id = f.productoId AND f.usuarioId = :usuarioId")
+    Page<Producto> findProductosFavoritosPorUsuario(@Param("usuarioId") long usuarioId, Pageable pageable);
 }

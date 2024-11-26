@@ -61,4 +61,8 @@ public class ListaProductosService {
         return listaProductosRepository.findByCategoriaFiltro(categorias, categorias.size(), PageRequest.of(page, rowsPerPage));
     }
 
+    public Page<Producto> obtenerFavoritosPorUsuario(int page, int rowsPerPage, Usuario usuario) {
+        return listaProductosRepository.findProductosFavoritosPorUsuario(usuario.getId(), PageRequest.of(page, rowsPerPage));
+    }
+
 }

@@ -132,6 +132,21 @@ public class ListaProductosController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/favoritos")
+    public ResponseEntity obtenerFavoritosUsuario(@RequestParam int page,
+                                                   @RequestParam int rowsPerPage) throws PaginaFueraDelLimiteException {
+        Usuario usu = SecurityUtils.getCurrentUser();
+
+        if (usu == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Page<Producto> result = listaProductoService.obtenerFavoritosPorUsuario(page, rowsPerPage, usu);
+        PageDTO<ProductoDTO> pageDTO = PaginationUtils.toPageDTO(result, Producto::toProductoDTO);
+
+        return ResponseEntity.ok(pageDTO);
+    }
+
     private void setearFavoritos(List<ProductoDTO> productosDTO, Usuario usuario) {
         List<Favorito> favoritos = favoritoService.buscarFavoritos(usuario);
 
