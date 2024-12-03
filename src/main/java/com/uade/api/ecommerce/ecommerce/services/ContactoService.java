@@ -6,6 +6,7 @@ import com.uade.api.ecommerce.ecommerce.models.ImagenContacto;
 import com.uade.api.ecommerce.ecommerce.repository.ContactoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ public class ContactoService {
     @Autowired
     private ContactoRepository contactoRepository;
 
+    @Transactional
     public Contacto guardarContacto(ContactoDTO contactoDTO, List<MultipartFile> imagenes) throws IOException, URISyntaxException {
         Contacto contacto = contactoDTO.toContacto();
         contacto = contactoRepository.save(contacto); // Guarda el contacto para obtener el ID
