@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.CheckoutException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.Factura;
 import com.uade.api.ecommerce.ecommerce.models.ItemFactura;
@@ -31,52 +32,56 @@ public class FacturaService {
     private StockService stockService;
 
 
-    public Factura realizarCompra(CarritoDTO carritoDTO) throws Exception
+    public Factura realizarCompra(CarritoDTO carritoDTO) throws CheckoutException
     {
-        List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
-                .map(itemDto -> {
-                    //remplazar con llamada a servicio correspondiente
-                    StockProducto productoStock = null;
-                    try {
-                        productoStock = stockService.obtenerStock(itemDto.getStockProductoId());
-                    } catch (ResourceNotFound e) {
-                        throw new RuntimeException(e);
-                    }
+        try{
+            List<ItemFactura> listItemsFactura = carritoDTO.getListItems().stream()
+                    .map(itemDto -> {
+                        //remplazar con llamada a servicio correspondiente
+                        StockProducto productoStock = null;
+                        try {
+                            productoStock = stockService.obtenerStock(itemDto.getStockProductoId());
+                        } catch (ResourceNotFound e) {
+                            throw new RuntimeException(e);
+                        }
 
-                    var itemFactura = ItemFactura.builder()
-                            .stockProducto(productoStock)
-                            .precioUnidad(productoStock.getProducto().getPrecio())
-                            .unidad(itemDto.getCantidad())
-                            .build();
+                        var itemFactura = ItemFactura.builder()
+                                .stockProducto(productoStock)
+                                .precioUnidad(productoStock.getProducto().getPrecio())
+                                .unidad(itemDto.getCantidad())
+                                .build();
 
-                    return itemFactura;
-                })
-                .toList();
+                        return itemFactura;
+                    })
+                    .toList();
 
-        List<StockProducto> listaStockProductos = listItemsFactura.stream().map(item -> {
-            var stock = item.getStockProducto();
-            stock.setCantidad(stock.getCantidad() - item.getUnidad());
-            return stock;
-        }).toList();
-        stockService.batchActualizar(listaStockProductos);
+            List<StockProducto> listaStockProductos = listItemsFactura.stream().map(item -> {
+                var stock = item.getStockProducto();
+                stock.setCantidad(stock.getCantidad() - item.getUnidad());
+                return stock;
+            }).toList();
+            stockService.batchActualizar(listaStockProductos);
 
-        Usuario comprador = SecurityUtils.getCurrentUser();
-        var factura = Factura.builder()
-                .comprador(comprador)
-                .fechaCompra(LocalDate.now());
+            Usuario comprador = SecurityUtils.getCurrentUser();
+            var factura = Factura.builder()
+                    .comprador(comprador)
+                    .fechaCompra(LocalDate.now());
 
-        var facturaSaved = facturaRepository.save(factura.build());
+            var facturaSaved = facturaRepository.save(factura.build());
 
-        for (ItemFactura itemFactura : listItemsFactura)
-        {
-            itemFactura.setFactura(facturaSaved);
+            for (ItemFactura itemFactura : listItemsFactura)
+            {
+                itemFactura.setFactura(facturaSaved);
+            }
+
+            itemFacturaRepository.saveAll(listItemsFactura);
+
+            facturaSaved.setItemFacturas(listItemsFactura);
+
+            return facturaSaved;
+        }catch (Exception e){
+            throw new CheckoutException();
         }
-
-        itemFacturaRepository.saveAll(listItemsFactura);
-
-        facturaSaved.setItemFacturas(listItemsFactura);
-
-        return facturaSaved;
     }
 
     public Factura obtenerFactura(Long id) throws ResourceNotFound
