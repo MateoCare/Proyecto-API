@@ -69,6 +69,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ProductoBajaException.class)
+    public ResponseEntity<?> productoBajaException(Exception ex, WebRequest request) {
+        logError(ex);
+        return new ResponseEntity<>(new ErrorDTO(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     // Handle all other exceptions globally
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {

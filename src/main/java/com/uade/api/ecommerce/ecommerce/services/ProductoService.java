@@ -1,6 +1,7 @@
 package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.exceptions.CategoriasColisionanException;
+import com.uade.api.ecommerce.ecommerce.exceptions.ProductoBajaException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.*;
 import com.uade.api.ecommerce.ecommerce.repository.FavoritoRepository;
@@ -70,7 +71,7 @@ public class ProductoService {
 
     public Producto addStock(StockProducto stock) throws Exception {
         if (!stock.getProducto().isStatus()) {
-            throw new Exception("El producto se encuentra dado de baja");
+            throw new ProductoBajaException();
         }
 
         var resultStock = stockService.addStockNuevo(stock);
@@ -81,7 +82,7 @@ public class ProductoService {
         var producto = this.obtenerProducto(productoId);
 
         if (!producto.isStatus()) {
-            throw new Exception("El producto se encuentra dado de baja");
+            throw new ProductoBajaException();
         }
 
         stockService.bajaProducto(stockId);
@@ -90,7 +91,7 @@ public class ProductoService {
 
     public Producto addStockExistente(StockProducto stock) throws Exception {
         if (!stock.getProducto().isStatus()) {
-            throw new Exception("El producto se encuentra dado de baja");
+            throw new ProductoBajaException();
         }
 
         var resultStock = stockService.addStockProductoExistente(stock);
@@ -111,7 +112,7 @@ public class ProductoService {
     public Producto actualizarProducto(Producto producto) throws Exception {
         var productoFound = this.obtenerProducto(producto.getId());
         if (!productoFound.isStatus()) {
-            throw new Exception("El producto se encuentra dado de baja");
+            throw new ProductoBajaException();
         }
         productoFound.setNombre(producto.getNombre());
         productoFound.setDescripcion(producto.getDescripcion());
