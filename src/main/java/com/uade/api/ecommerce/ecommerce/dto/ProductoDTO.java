@@ -18,6 +18,7 @@ public class ProductoDTO {
     private List<CategoriaDTO> categorias;
     private List<StockDTO> stock;
     private boolean favorito = false;
+    private boolean status = true;
 
     public Producto toProducto() {
 
@@ -29,6 +30,7 @@ public class ProductoDTO {
                 .stockProductos(this.stock != null ? this.stock.stream().map(StockDTO::toStock).toList() : null)
                 .categoria(this.categorias != null ?
                         this.categorias.stream().map(CategoriaDTO::toCategoria).toList() : null)
+                .status(this.status)
                 .build();
     }
 }

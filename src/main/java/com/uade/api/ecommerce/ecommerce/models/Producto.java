@@ -37,6 +37,7 @@ public class Producto {
                 .precio(precio)
                 .categorias(this.categoria != null ? this.categoria.stream().map(Categoria::toCategoriaDTO).toList() : null)
                 .stock(this.stockProductos != null ? stockProductos.stream().map(StockProducto::toStockDTO).toList(): null)
+                .status(status)
                 .build();
     }
 }

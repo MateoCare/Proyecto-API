@@ -29,7 +29,10 @@ public class ListaProductosService {
     @Autowired
     private Environment env;
 
-    public Page<Producto> buscarProductos(int page, int rowsPerPage) {
+    public Page<Producto> buscarProductos(int page, int rowsPerPage, boolean admin) {
+        if(!admin){
+            return listaProductosRepository.findAllByStatus(true,PageRequest.of(page, rowsPerPage));
+        }
         return listaProductosRepository.findAll(PageRequest.of(page, rowsPerPage));
     }
 

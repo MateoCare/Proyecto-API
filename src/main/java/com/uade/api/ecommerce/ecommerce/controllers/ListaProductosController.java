@@ -6,10 +6,7 @@ import com.uade.api.ecommerce.ecommerce.dto.PageDTO;
 import com.uade.api.ecommerce.ecommerce.dto.ProductoDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.PaginaFueraDelLimiteException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ValidationException;
-import com.uade.api.ecommerce.ecommerce.models.Categoria;
-import com.uade.api.ecommerce.ecommerce.models.Favorito;
-import com.uade.api.ecommerce.ecommerce.models.Producto;
-import com.uade.api.ecommerce.ecommerce.models.Usuario;
+import com.uade.api.ecommerce.ecommerce.models.*;
 import com.uade.api.ecommerce.ecommerce.services.CategoriaService;
 import com.uade.api.ecommerce.ecommerce.services.FavoritoService;
 import com.uade.api.ecommerce.ecommerce.services.ListaProductosService;
@@ -39,15 +36,16 @@ public class ListaProductosController {
     @GetMapping
     public ResponseEntity<?> listarProductosPorCategoria(@RequestParam int page,
                                                                          @RequestParam int rowsPerPage,
-                                                                         @RequestParam(name = "categorias", required
-                                                                                 = false) List<Long> categorias) throws ValidationException, PaginaFueraDelLimiteException {
+                                                                         @RequestParam(name = "categorias", required = false) List<Long> categorias) throws ValidationException, PaginaFueraDelLimiteException {
         if (rowsPerPage == 0) {
             throw new ValidationException("rowsPerPage debe ser mayor a 0");
         }
 
         Page<Producto> productos = null;
+        Usuario user = SecurityUtils.getCurrentUser();
+        boolean admin= user.getRol() == Rol.ADMIN;
         if (categorias == null) {
-            productos = listaProductoService.buscarProductos(page, rowsPerPage);
+            productos = listaProductoService.buscarProductos(page, rowsPerPage, admin);
         } else {
             productos = listaProductoService.buscarProductosPorCategoria(categorias, page, rowsPerPage);
         }
