@@ -2,6 +2,7 @@ package com.uade.api.ecommerce.ecommerce.services;
 
 import com.uade.api.ecommerce.ecommerce.dto.CarritoDTO;
 import com.uade.api.ecommerce.ecommerce.exceptions.CheckoutException;
+import com.uade.api.ecommerce.ecommerce.exceptions.ProductoBajaException;
 import com.uade.api.ecommerce.ecommerce.exceptions.ResourceNotFound;
 import com.uade.api.ecommerce.ecommerce.models.Factura;
 import com.uade.api.ecommerce.ecommerce.models.ItemFactura;
@@ -41,7 +42,11 @@ public class FacturaService {
                         StockProducto productoStock = null;
                         try {
                             productoStock = stockService.obtenerStock(itemDto.getStockProductoId());
-                        } catch (ResourceNotFound e) {
+
+                            if(!productoStock.getProducto().isStatus()){
+                                throw new ProductoBajaException();
+                            }
+                        } catch (ResourceNotFound | ProductoBajaException e) {
                             throw new RuntimeException(e);
                         }
 
