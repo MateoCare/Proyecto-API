@@ -10,4 +10,5 @@ public class PageDTO<T> {
     private int currentPage;
     private int lastPage;
     private int rowsPerPage;
+    private long totalRows;
 }

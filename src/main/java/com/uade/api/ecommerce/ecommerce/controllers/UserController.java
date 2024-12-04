@@ -1,19 +1,21 @@
 package com.uade.api.ecommerce.ecommerce.controllers;
 
 import com.uade.api.ecommerce.ecommerce.dto.FacturaDTO;
+import com.uade.api.ecommerce.ecommerce.dto.PageDTO;
 import com.uade.api.ecommerce.ecommerce.dto.UsuarioDTO;
+import com.uade.api.ecommerce.ecommerce.exceptions.PaginaFueraDelLimiteException;
 import com.uade.api.ecommerce.ecommerce.models.Factura;
-import com.uade.api.ecommerce.ecommerce.models.Usuario;
-import com.uade.api.ecommerce.ecommerce.repository.UserRepository;
 import com.uade.api.ecommerce.ecommerce.services.FacturaService;
 import com.uade.api.ecommerce.ecommerce.services.UserService;
+import com.uade.api.ecommerce.ecommerce.util.PaginationUtils;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -34,12 +36,12 @@ public class UserController
     }
 
     @GetMapping("/factura")
-    public ResponseEntity obtenerTodasFacturas()
-    {
-        var response = facturaService.obtenerFacturas(SecurityUtils.getCurrentUser());
+    public ResponseEntity<PageDTO<FacturaDTO>> obtenerTodasFacturas(@RequestParam int page,
+                                               @RequestParam int rowsPerPage) throws PaginaFueraDelLimiteException {
+        var response = facturaService.obtenerFacturas(SecurityUtils.getCurrentUser(), page, rowsPerPage);
 
-        List<FacturaDTO> formated = response.stream().map(Factura::toDTO).toList();
+        PageDTO<FacturaDTO> pageDTO = PaginationUtils.toPageDTO(response, Factura::toDTO);
 
-        return ResponseEntity.ok(formated);
+        return ResponseEntity.ok(pageDTO);
     }
 }

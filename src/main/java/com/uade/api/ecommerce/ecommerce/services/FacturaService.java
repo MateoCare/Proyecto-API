@@ -10,10 +10,11 @@ import com.uade.api.ecommerce.ecommerce.models.StockProducto;
 import com.uade.api.ecommerce.ecommerce.models.Usuario;
 import com.uade.api.ecommerce.ecommerce.repository.FacturaRepository;
 import com.uade.api.ecommerce.ecommerce.repository.ItemFacturaRepository;
-import com.uade.api.ecommerce.ecommerce.repository.StockProductoRepository;
 import com.uade.api.ecommerce.ecommerce.repository.UserRepository;
 import com.uade.api.ecommerce.ecommerce.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -99,8 +100,8 @@ public class FacturaService {
         return result.get();
     }
 
-    public List<Factura> obtenerFacturas(Usuario comprador)
+    public Page<Factura> obtenerFacturas(Usuario comprador, int page, int rowsPerPage)
     {
-        return facturaRepository.findByComprador(comprador);
+        return facturaRepository.findByComprador(comprador, PageRequest.of(page, rowsPerPage));
     }
 }

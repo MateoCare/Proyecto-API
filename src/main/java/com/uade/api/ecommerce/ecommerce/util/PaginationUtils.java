@@ -45,6 +45,7 @@ public class PaginationUtils {
         pageDTO.setLastPage(lastPage);
         pageDTO.setPageItems(page.stream().map(mapper).toList());
         pageDTO.setRowsPerPage(page.getSize());
+        pageDTO.setTotalRows(page.getTotalElements());
 
         if (pageDTO.getCurrentPage() > pageDTO.getLastPage()) {
             throw new PaginaFueraDelLimiteException(pageDTO);
